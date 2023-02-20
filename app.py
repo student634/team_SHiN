@@ -16,7 +16,7 @@ def home():
     return render.template('home.html')
 
 # ログイン処理
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
     session.clear()
@@ -24,7 +24,7 @@ def login():
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
         # データベースとフォームの情報を照合
-        
+
     # /loginにアクセスしただけの場合
     else:
         return render_template("login.html")
