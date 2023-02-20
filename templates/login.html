@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+
+    <form method="POST">
+        <div>
+            <input autofocus name="login_id" type="text" placeholder="ユーザー名"  required>
+        </div>
+        <div>
+            <input name="login_pass" type="password" placeholder="パスワード" required>
+        </div>
+        <button type="submit">ログイン</button>
+    </form>
+
+
+{% endblock %}
