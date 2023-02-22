@@ -47,12 +47,39 @@ def login():
 
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
-        # データベースとフォームの情報を照合
+
+        # フォームの情報を取得
+        login_id = request.form.get("login_id")
+        login_pass = request.form.get("login_pass")
+
+        # データベースとフォームの情報を照合（ユーザー名・パスワード）
+        # セッションにidを代入
+        # page移動
 
     # /loginにアクセスしただけの場合
     else:
         return render_template("login.html")
 
+# 登録処理
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    # POST通信だった（フォームが送信された）場合
+    if request.method == "POST":
+
+        # フォームの情報を取得
+        register_id = request.form.get("register_id")
+        register_pass = request.form.get("register_pass")
+
+        # 名前被りチェック
+        # パスワードをハッシュ化
+        # データベースにformのデータを記録
+        # セッションにidを代入
+        # page移動
+
+    # /registerにアクセスしただけの場合
+    else:
+        return render_template("register.html")
 
 # 記録処理
 # 中井が担当
