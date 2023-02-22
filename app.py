@@ -32,7 +32,7 @@ def login():
 
 # 未解決のエラーを表示
 @app.route("/outstanding")
-@login_required
+# @login_required
 def display_outstanding():
 
     # 未解決エラーをデータベースから取り出し、格納
