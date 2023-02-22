@@ -29,6 +29,7 @@ def login():
     else:
         return render_template("login.html")
 
+####イシモリ
 # 未解決のエラーを表示
 @app.route("/outstanding")
 # @login_required
@@ -44,8 +45,9 @@ def display_outstanding():
 # @login_required
 def display_resolved():
 
-    # 未解決エラーをデータベースから取り出し、格納
+    # 解決済みのエラーをデータベースから取り出し、格納
     resolved_errors = db.execute("SELECT ~")
 
     return render_template("outstanding.html", resolved_errors=resolved_errors)
 
+#####イシモリ
