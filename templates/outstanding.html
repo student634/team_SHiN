@@ -8,26 +8,27 @@
 
 {% block body %}
 
-        <div class="section">
-
-            <h2>All Birthdays</h2>
-            <table>
-                <thead>
+    <h2>未解決エラー</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>日時</th>
+                <th>言語</th>
+                <th>エラー文</th>
+                <th>状況説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- TODO: Loop through the database entries to display them in this table -->
+                {% for outstanding_error in outstanding_errors %}
                     <tr>
-                        <th>Name</th>
-                        <th>Birthday</th>
+                        <td>{{  }}</td>
+                        <td>{{  }}</td>
+                        <td>{{  }}</td>
+                        <td>{{  }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <!-- TODO: Loop through the database entries to display them in this table -->
-                        {% for birthday in birthdays %}
-                            <tr>
-                                <td>{{ birthday.name }}</td>
-                                <td>{{ birthday.month }}/{{ birthday.day }}</td>
-                            </tr>
-                        {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
