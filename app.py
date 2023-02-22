@@ -13,7 +13,8 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     # ただHome画面を表示するだけ
-    return render.template('home.html')
+    # return render.template('home.html')#############
+    return render_template('home.html')
 
 # ログイン処理
 @app.route("/login", methods=["GET", "POST"])
@@ -36,6 +37,7 @@ def login():
     else:
         return render_template("login.html")
 
+<<<<<<< HEAD
 # 登録処理
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -56,3 +58,25 @@ def register():
     # /registerにアクセスしただけの場合
     else:
         return render_template("register.html")
+=======
+# 未解決のエラーを表示
+@app.route("/outstanding")
+# @login_required
+def display_outstanding():
+
+    # 未解決エラーをデータベースから取り出し、格納
+    outstanding_errors = db.execute("SELECT ~")
+
+    return render_template("outstanding.html", outstanding_errors=outstanding_errors)
+
+#解決済みのエラーを表示
+@app.route("/resolved")
+# @login_required
+def display_resolved():
+
+    # 未解決エラーをデータベースから取り出し、格納
+    resolved_errors = db.execute("SELECT ~")
+
+    return render_template("outstanding.html", resolved_errors=resolved_errors)
+
+>>>>>>> refs/remotes/origin/main

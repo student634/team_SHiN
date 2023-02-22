@@ -8,6 +8,27 @@
 
 {% block body %}
 
-
+    <h2>未解決エラー</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>日時</th>
+                <th>言語</th>
+                <th>エラー文</th>
+                <th>状況説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- TODO: Loop through the database entries to display them in this table -->
+                {% for outstanding_error in outstanding_errors %}
+                    <tr>
+                        <td>{{ outstanding_error }}</td>
+                        <td>{{ a }}</td>
+                        <td>{{ b }}</td>
+                        <td>{{ c }}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
