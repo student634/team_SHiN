@@ -13,7 +13,8 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     # ただHome画面を表示するだけ
-    return render.template('home.html')
+    # return render.template('home.html')#############
+    return render_template('home.html')
 
 # ログイン処理
 @app.route("/login", methods=["GET", "POST"])
