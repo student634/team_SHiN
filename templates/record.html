@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Record
+{% endblock %}
+
+{% block main %}
+    <form action="/record" method="post">
+        <div class="mb-3">
+            <!-- autofocusいるかな？ -->
+            <!-- inputいらないのでは？？ -->
+            <!-- <input autocoplete="off" autofocus name="language" placeholder="学習した言語を選んでください" type="text"> -->
+            <select>
+                <option disable selected>学習した言語を選択してください</option>
+                <option>LANGUAGES</option>
+            </select>
+            <input autocomplete="off" name="error" placeholder="エラーをターミナルからコピーして入力してください" type="text" required>
+            <input autocomplete="off" name="explanation" placeholder="説明文を入力してください" type="text" required>
+            <input autocomplete="off" name="solution" placeholder="解決策を入力してください" type="text">
+            <button type="submit">解決</button>
+            <button type="submit">未解決</button>
+        </div>
+    </form>
+
+{% endblock %}
