@@ -9,6 +9,30 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
+# 空の辞書
+# REGISTANTS = {}
+
+# 人気な言語をあらかじめ用意しておく
+LANGUAGES = [
+    "Python",
+    "C",
+    "C++",
+    "C#",
+    "Java",
+    "JavaScript",
+    "VB",
+    "SQL",
+    "PHP",
+    "Assembly language",
+    "Ruby",
+    "Go",
+    "Kotlin",
+    "AWS",
+    "Swift",
+    "HTML",
+    "CSS"
+]
+
 # 起動時、必ずHomeが表示されるように
 @app.route("/")
 def home():
@@ -28,6 +52,45 @@ def login():
     # /loginにアクセスしただけの場合
     else:
         return render_template("login.html")
+
+
+# 記録処理
+# 中井が担当
+@app.route("/record", methods=["GET", "POST"])
+@login_required
+def record():
+
+    if request.method == "POST":
+
+        # エラー言語（選ぶ）formじゃないかも?
+        language = request.form.get("language")
+        # エラー
+        error = request.form.get("error")
+        # 状況説明
+        explanation = request.form.get("explanation")
+        # 解決策
+        solution = request.form.get("solution")
+
+        # apology 作らないといけない,helpers.pyみたいなの
+        if not language:
+            return apology("missing language", 400)
+
+        if not error:
+            return apology("please enter an error", 400)
+
+        if not explanation:
+            return apology("Please explain the situation", 400)
+
+        # 未解決の場合
+        if not solution:
+            flash("記録しました！頑張ったね！")
+            return render_template("outstanding.html")
+
+        flash("記録しました！解決できてすごい！")
+            return render_template("resolved.html")
+
+    else:
+        return render_template("record.html")
 
 ####イシモリ
 # 未解決のエラーを表示
