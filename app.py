@@ -25,7 +25,6 @@ def login():
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
         # データベースとフォームの情報を照合
-        return render_template("login.html") ###########
 
     # /loginにアクセスしただけの場合
     else:
@@ -37,18 +36,17 @@ def login():
 def display_outstanding():
 
     # 未解決エラーをデータベースから取り出し、格納
-    # outstanding_errors = db.execute("SELECT ~")
-    outstanding_errors = [error1, error2]
+    outstanding_errors = db.execute("SELECT ~")
 
     return render_template("outstanding.html", outstanding_errors=outstanding_errors)
 
 #解決済みのエラーを表示
-# @app.route("/resolved")
+@app.route("/resolved")
 # @login_required
-# def display_resolved():
+def display_resolved():
 
-#     # 未解決エラーをデータベースから取り出し、格納
-#     resolved_errors = db.execute("SELECT ~")
+    # 未解決エラーをデータベースから取り出し、格納
+    resolved_errors = db.execute("SELECT ~")
 
-#     return render_template("outstanding.html", resolved_errors=resolved_errors)
+    return render_template("outstanding.html", resolved_errors=resolved_errors)
 
