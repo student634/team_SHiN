@@ -24,6 +24,7 @@ def login():
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
         # データベースとフォームの情報を照合
+        return render_template("login.html") ###########
 
     # /loginにアクセスしただけの場合
     else:
