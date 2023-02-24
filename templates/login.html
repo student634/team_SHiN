@@ -7,13 +7,15 @@
 {% block body %}
 
     <form method="POST" action="/login">
-        <div>
-            <input autofocus name="login_id" type="text" placeholder="ユーザー名"  required>
+        <div class="mb-3">
+            <label class="form-label">ユーザー名</label>
+            <input class="form-text" autofocus name="login_id" type="text" placeholder="ユーザー名"  required>
         </div>
-        <div>
-            <input name="login_pass" type="password" placeholder="パスワード" required>
+        <div class="mb-3">
+            <label class="form-label">パスワード</label>
+            <input class="form-control"  name="login_pass" type="password" placeholder="パスワード" required>
         </div>
-        <button type="submit">ログイン</button>
+        <button type="submit" class="btn">ログイン</button>
     </form>
 
 {% endblock %}

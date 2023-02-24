@@ -8,12 +8,14 @@
 
     <form method="POST" action="/register">
         <div>
-            <input autofocus name="register_id" type="text" placeholder="ユーザー名"  required>
+            <label class="form-label">ユーザー名</label>
+            <input class="form-text" autofocus name="register_id" type="text" placeholder="ユーザー名"  required>
         </div>
         <div>
-            <input name="register_pass" type="password" placeholder="パスワード" required>
+            <label class="form-label">パスワード</label>
+            <input class="form-control" type="password" name="register_pass" placeholder="パスワード" required>
         </div>
-        <button type="submit">新規登録</button>
+        <button class="btn" type="submit">新規登録</button>
     </form>
 
 {% endblock %}
