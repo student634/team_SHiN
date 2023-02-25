@@ -113,13 +113,14 @@ def record():
             flash("記録しました！頑張ったね！")
             return render_template("outstanding.html")
 
-        flash("記録しました！解決できてすごい！")
+        else:
+            flash("記録しました！解決できてすごい！")
             return render_template("resolved.html")
 
     else:
         return render_template("record.html")
 
-####イシモリ
+#イシモリ
 # 未解決のエラーを表示
 @app.route("/outstanding")
 # @login_required
