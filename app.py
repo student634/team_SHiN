@@ -112,14 +112,10 @@ def record():
         if not solution:
             flash("記録しました！頑張ったね！")
             return render_template("outstanding.html")
-            
-        # 解決できた場合
-        
-        flash("記録しました！解決できてすごい！")
 
+        # 解決できた場合
         else:
             flash("記録しました！解決できてすごい！")
-
             return render_template("resolved.html")
 
     else:
