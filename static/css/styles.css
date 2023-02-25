@@ -3,10 +3,8 @@ body{
   color: #333333;
 }
 
-.home-box{
-  justify-content: center;
-  background-color: #a9cae7;
-  align-items: center;
+.home{
+  justify-content:center;
 }
 
 .home-button {
@@ -17,10 +15,10 @@ body{
 	overflow: hidden;
 	text-decoration: none;
 	height: 4rem;
-	width: 120px;
-	margin: auto;
-	padding: 0 4rem;
-	border-radius: 50vw;
+	width: 190px;
+	margin: 20px;
+	padding:10px;
+	border-radius: 3%;
 	background: #6a6e78;
 	background-size: 400%;
 	color: #fff;
@@ -29,7 +27,7 @@ body{
   transform: scaleX(1);
 }
 .home-button:hover {
-	color: #333333;
+	color: #fff;
 }
 .home-button span {
   position: relative;

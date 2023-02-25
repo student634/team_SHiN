@@ -43,33 +43,33 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
-    session.clear()
+    # session.clear()
 
-    # POST通信だった（フォームが送信された）場合
-    if request.method == "POST":
+    # # POST通信だった（フォームが送信された）場合
+    # if request.method == "POST":
 
-        # フォームの情報を取得
-        login_id = request.form.get("login_id")
-        login_pass = request.form.get("login_pass")
+    #     # フォームの情報を取得
+    #     login_id = request.form.get("login_id")
+    #     login_pass = request.form.get("login_pass")
 
         # データベースとフォームの情報を照合（ユーザー名・パスワード）
         # セッションにidを代入
         # page移動
 
     # /loginにアクセスしただけの場合
-    else:
-        return render_template("login.html")
+    # else:
+    return render_template("login.html")
 
 # 登録処理
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
     # POST通信だった（フォームが送信された）場合
-    if request.method == "POST":
+    # if request.method == "POST":
 
-        # フォームの情報を取得
-        register_id = request.form.get("register_id")
-        register_pass = request.form.get("register_pass")
+    #     # フォームの情報を取得
+    #     register_id = request.form.get("register_id")
+    #     register_pass = request.form.get("register_pass")
 
         # 名前被りチェック
         # パスワードをハッシュ化
@@ -78,46 +78,46 @@ def register():
         # page移動
 
     # /registerにアクセスしただけの場合
-    else:
-        return render_template("register.html")
+    # else:
+    return render_template("register.html")
 
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-@login_required
+# @login_required
 def record():
 
-    if request.method == "POST":
+    # if request.method == "POST":
 
-        # エラー言語（選ぶ）formじゃないかも?
-        language = request.form.get("language")
-        # エラー
-        error = request.form.get("error")
-        # 状況説明
-        explanation = request.form.get("explanation")
-        # 解決策
-        solution = request.form.get("solution")
+    #     # エラー言語（選ぶ）formじゃないかも?
+    #     language = request.form.get("language")
+    #     # エラー
+    #     error = request.form.get("error")
+    #     # 状況説明
+    #     explanation = request.form.get("explanation")
+    #     # 解決策
+    #     solution = request.form.get("solution")
 
-        # apology 作らないといけない,helpers.pyみたいなの
-        if not language:
-            return apology("missing language", 400)
+    #     # apology 作らないといけない,helpers.pyみたいなの
+    #     if not language:
+    #         return apology("missing language", 400)
 
-        if not error:
-            return apology("please enter an error", 400)
+    #     if not error:
+    #         return apology("please enter an error", 400)
 
-        if not explanation:
-            return apology("Please explain the situation", 400)
+    #     if not explanation:
+    #         return apology("Please explain the situation", 400)
 
-        # 未解決の場合
-        if not solution:
-            flash("記録しました！頑張ったね！")
-            return render_template("outstanding.html")
+    #     # 未解決の場合
+    #     if not solution:
+    #         flash("記録しました！頑張ったね！")
+    #         return render_template("outstanding.html")
 
-        flash("記録しました！解決できてすごい！")
-            return render_template("resolved.html")
+    #     flash("記録しました！解決できてすごい！")
+    #         return render_template("resolved.html")
 
-    else:
-        return render_template("record.html")
+    # else:
+    return render_template("record.html")
 
 ####イシモリ
 # 未解決のエラーを表示
@@ -126,7 +126,7 @@ def record():
 def display_outstanding():
 
     # 未解決エラーをデータベースから取り出し、格納
-    outstanding_errors = db.execute("SELECT ~")
+    # outstanding_errors = db.execute("SELECT ~")
 
     return render_template("outstanding.html", outstanding_errors=outstanding_errors)
 
@@ -136,8 +136,10 @@ def display_outstanding():
 def display_resolved():
 
     # 解決済みのエラーをデータベースから取り出し、格納
-    resolved_errors = db.execute("SELECT ~")
+    # resolved_errors = db.execute("SELECT ~")
 
     return render_template("outstanding.html", resolved_errors=resolved_errors)
 
 #####イシモリ
+if __name__ == "__main__":
+    app.run(debug=True)
