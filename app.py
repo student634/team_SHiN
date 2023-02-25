@@ -89,7 +89,7 @@ def record():
 
     if request.method == "POST":
 
-        # エラー言語（選ぶ）formじゃないかも?
+        # エラー言語
         language = request.form.get("language")
         # エラー
         error = request.form.get("error")
@@ -98,7 +98,7 @@ def record():
         # 解決策
         solution = request.form.get("solution")
 
-        # apology 作らないといけない,helpers.pyみたいなの
+        # apology 作らないといけない？helpers.pyみたいなの
         if not language:
             return apology("missing language", 400)
 
@@ -108,11 +108,13 @@ def record():
         if not explanation:
             return apology("Please explain the situation", 400)
 
-        # 未解決の場合
+        # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
             return render_template("outstanding.html")
 
+        # 解決できた場合
+        
         flash("記録しました！解決できてすごい！")
             return render_template("resolved.html")
 
