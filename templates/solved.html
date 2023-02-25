@@ -1,2 +1,32 @@
-解決した方
-<!-- solved.html　はどうでしょうか　石森 -->
+{% extends "base.html" %}
+
+{% block title %}
+    解決済
+{% endblock %}
+
+{% block body %}
+
+    <h2>解決済みエラー</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>エラー投稿日時</th>
+                <th>エラー解決日時</th>
+                <th>言語</th>
+                <th>エラー文</th>
+                <th>状況説明</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for unsolved_error in unsolved_errors %}
+                    <tr>
+                        <td>{{ unsolved_error.before_day }}</td>
+                        <td>{{ unsolved_error.after_day }}</td>
+                        <td>{{ unsolved_error.language }}</td>
+                        <td>{{ unsolved_error.explain }}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

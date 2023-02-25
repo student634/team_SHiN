@@ -125,19 +125,23 @@ def record():
 # @login_required
 def display_outstanding():
 
-    # 未解決エラーをデータベースから取り出し、格納
-    outstanding_errors = db.execute("SELECT ~")
+    db = SQL("sqlite:///sns.db")
 
-    return render_template("outstanding.html", outstanding_errors=outstanding_errors)
+    # 未解決エラーをデータベースから取り出し、格納
+    unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+
+    return render_template("unsolved.html", unsolved_errors=unsolved_errors)
 
 #解決済みのエラーを表示
 @app.route("/resolved")
 # @login_required
 def display_resolved():
 
-    # 解決済みのエラーをデータベースから取り出し、格納
-    resolved_errors = db.execute("SELECT ~")
+    db = SQL("sqlite:///sns.db")
 
-    return render_template("outstanding.html", resolved_errors=resolved_errors)
+    # 解決済みのエラーをデータベースから取り出し、格納
+    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+
+    return render_template("solved.html", solved_errors=solved_errors)
 
 #####イシモリ
