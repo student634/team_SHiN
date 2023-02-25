@@ -43,33 +43,33 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
-    session.clear()
+    # session.clear()
 
-    # POST通信だった（フォームが送信された）場合
-    if request.method == "POST":
+    # # POST通信だった（フォームが送信された）場合
+    # if request.method == "POST":
 
-        # フォームの情報を取得
-        login_id = request.form.get("login_id")
-        login_pass = request.form.get("login_pass")
+    #     # フォームの情報を取得
+    #     login_id = request.form.get("login_id")
+    #     login_pass = request.form.get("login_pass")
 
         # データベースとフォームの情報を照合（ユーザー名・パスワード）
         # セッションにidを代入
         # page移動
 
     # /loginにアクセスしただけの場合
-    else:
-        return render_template("login.html")
+    # else:
+    return render_template("login.html")
 
 # 登録処理
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
     # POST通信だった（フォームが送信された）場合
-    if request.method == "POST":
+    # if request.method == "POST":
 
-        # フォームの情報を取得
-        register_id = request.form.get("register_id")
-        register_pass = request.form.get("register_pass")
+    #     # フォームの情報を取得
+    #     register_id = request.form.get("register_id")
+    #     register_pass = request.form.get("register_pass")
 
         # 名前被りチェック
         # パスワードをハッシュ化
@@ -78,18 +78,18 @@ def register():
         # page移動
 
     # /registerにアクセスしただけの場合
-    else:
-        return render_template("register.html")
+    # else:
+    return render_template("register.html")
 
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-@login_required
+# @login_required
 def record():
 
     if request.method == "POST":
 
-        # エラー言語
+        # エラー言語（選ぶ）formじゃないかも?
         language = request.form.get("language")
         # エラー
         error = request.form.get("error")
@@ -98,9 +98,10 @@ def record():
         # 解決策
         solution = request.form.get("solution")
 
-        # apology 作らないといけない？helpers.pyみたいなの
+        # apology 作らないといけない,helpers.pyみたいなの
         if not language:
             return apology("missing language", 400)
+
 
         if not error:
             return apology("please enter an error", 400)
@@ -112,10 +113,14 @@ def record():
         if not solution:
             flash("記録しました！頑張ったね！")
             return render_template("outstanding.html")
-
+            
         # 解決できた場合
+        
+        flash("記録しました！解決できてすごい！")
+
         else:
             flash("記録しました！解決できてすごい！")
+
             return render_template("resolved.html")
 
     else:
@@ -131,6 +136,7 @@ def display_outstanding():
 
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+    # outstanding_errors = db.execute("SELECT ~")
 
     return render_template("unsolved.html", unsolved_errors=unsolved_errors)
 
@@ -142,8 +148,14 @@ def display_resolved():
     db = SQL("sqlite:///sns.db")
 
     # 解決済みのエラーをデータベースから取り出し、格納
+
     solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+
+    # resolved_errors = db.execute("SELECT ~")
+
 
     return render_template("solved.html", solved_errors=solved_errors)
 
 #####イシモリ
+if __name__ == "__main__":
+    app.run(debug=True)
