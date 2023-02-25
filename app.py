@@ -121,7 +121,7 @@ def record():
     else:
         return render_template("record.html")
 
-#イシモリ
+#イシモリ #最終更新 2/25
 # 未解決のエラーを表示
 @app.route("/outstanding")
 # @login_required
