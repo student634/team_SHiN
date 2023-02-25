@@ -126,26 +126,35 @@ def record():
     else:
         return render_template("record.html")
 
-#イシモリ
+#イシモリ #最終更新 2/25
 # 未解決のエラーを表示
 @app.route("/outstanding")
 # @login_required
 def display_outstanding():
 
+    db = SQL("sqlite:///sns.db")
+
     # 未解決エラーをデータベースから取り出し、格納
+    unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
     # outstanding_errors = db.execute("SELECT ~")
 
-    return render_template("outstanding.html", outstanding_errors=outstanding_errors)
+    return render_template("unsolved.html", unsolved_errors=unsolved_errors)
 
 #解決済みのエラーを表示
 @app.route("/resolved")
 # @login_required
 def display_resolved():
 
+    db = SQL("sqlite:///sns.db")
+
     # 解決済みのエラーをデータベースから取り出し、格納
+
+    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+
     # resolved_errors = db.execute("SELECT ~")
 
-    return render_template("outstanding.html", resolved_errors=resolved_errors)
+
+    return render_template("solved.html", solved_errors=solved_errors)
 
 #####イシモリ
 if __name__ == "__main__":
