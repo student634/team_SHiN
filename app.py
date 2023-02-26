@@ -138,7 +138,7 @@ def record():
     else:
         return render_template("record.html", language=LANGUAGES)
 
-#イシモリ #最終更新 2/25
+#イシモリ #最終更新 2/26
 # 未解決のエラーを表示
 @app.route("/unsolved")
 # @login_required
