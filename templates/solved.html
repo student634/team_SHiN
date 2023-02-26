@@ -8,25 +8,22 @@
 
     <h2>解決済みエラー</h2>
     <table>
-        <thead>
+        <tr>
+            <th>エラー投稿日時</th>
+            <th>エラー解決日時</th>
+            <th>言語</th>
+            <th>エラー文</th>
+            <th>状況説明</th>
+        </tr>
+        {% for solved_error in solved_errors %}
             <tr>
-                <th>エラー投稿日時</th>
-                <th>エラー解決日時</th>
-                <th>言語</th>
-                <th>エラー文</th>
-                <th>状況説明</th>
+                <td>{{ solved_error.before_day }}</td>
+                <td>{{ solved_error.after_day }}</td>
+                <td>{{ solved_error.language }}</td>
+                <td>{{ solved_error.message }}</td>
+                <td>{{ solved_error.explain }}</td>
             </tr>
-        </thead>
-        <tbody>
-                {% for solved_error in solved_errors %}
-                    <tr>
-                        <td>{{ solved_error.before_day }}</td>
-                        <td>{{ solved_error.after_day }}</td>
-                        <td>{{ solved_error.language }}</td>
-                        <td>{{ solved_error.explain }}</td>
-                    </tr>
-                {% endfor %}
-        </tbody>
+        {% endfor %}
     </table>
 
 {% endblock %}
