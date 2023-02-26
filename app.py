@@ -124,7 +124,6 @@ def record():
 
         else:
             flash("記録しました！解決できてすごい！")
-
             return render_template("solved.html")
 
     else:
