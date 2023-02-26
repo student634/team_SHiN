@@ -138,7 +138,7 @@ def record():
             return render_template("solved.html")
 
     else:
-        return render_template("record.html")
+        return render_template("record.html", language=LANGUAGES)
 
 #イシモリ #最終更新 2/25
 # 未解決のエラーを表示

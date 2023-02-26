@@ -10,9 +10,11 @@
             <!-- autofocusいるかな？ -->
             <!-- inputいらないのでは？？ -->
             <!-- <input autocoplete="off" autofocus name="language" placeholder="学習した言語を選んでください" type="text"> -->
-            <select>
+            <select name="language">
                 <option disable selected>学習した言語を選択してください</option>
-                <option>LANGUAGES</option>
+                {% for lan in language}
+                <option>{{ lan }}</option>
+                {% end for %}
             </select>
             <input autocomplete="off" name="error" placeholder="エラーをターミナルからコピーして入力してください" type="text" required>
             <input autocomplete="off" name="explanation" placeholder="説明文を入力してください" type="text" required>
