@@ -9,6 +9,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
+db = SQL("sqlite:///sns.db")
+
 # 空の辞書
 # REGISTANTS = {}
 
@@ -112,11 +114,13 @@ def record():
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
+            db.execute("INSERT INTO errors (language, message, explain) VALUES(?, ?, ?)", language, error, explanation)
             return render_template("unsolved.html")
-            
+
         # 解決できた場合
-        
+
         flash("記録しました！解決できてすごい！")
+        db.execute("INSERT INTO errors (language, message, explain, solved) VALUES(?, ?, ?, ?)", language, error, explanation, solution)
 
         else:
             flash("記録しました！解決できてすごい！")
@@ -132,7 +136,6 @@ def record():
 # @login_required
 def display_unsolved():
 
-    db = SQL("sqlite:///sns.db")
 
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
