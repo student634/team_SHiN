@@ -115,12 +115,8 @@ def record():
             return render_template("unsolved.html")
             
         # 解決できた場合
-        
-        flash("記録しました！解決できてすごい！")
-
         else:
             flash("記録しました！解決できてすごい！")
-
             return render_template("solved.html")
 
     else:
