@@ -9,6 +9,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
+db = SQL("sqlite:///sns.db")
+
 # 空の辞書
 # REGISTANTS = {}
 
@@ -33,6 +35,9 @@ LANGUAGES = [
     "CSS"
 ]
 
+# データベースを紐付ける
+db = SQL("sqlite:///sns.db")
+
 # 起動時、必ずHomeが表示されるように
 @app.route("/")
 def home():
@@ -42,43 +47,54 @@ def home():
 # ログイン処理
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # それまで保存されていたセッションを消去
-    # session.clear()
+    それまで保存されていたセッションを消去
+    session.clear()
 
-    # # POST通信だった（フォームが送信された）場合
-    # if request.method == "POST":
+    # POST通信だった（フォームが送信された）場合
+    if request.method == "POST":
 
-    #     # フォームの情報を取得
-    #     login_id = request.form.get("login_id")
-    #     login_pass = request.form.get("login_pass")
+        # フォームの情報を取得
+        login_id = request.form.get("login_id") # ユーザー名
+        login_pass = request.form.get("login_pass") # パスワード
 
-        # データベースとフォームの情報を照合（ユーザー名・パスワード）
+        # データベースから（ユーザー名・パスワード）が一致する行を抜き出し
+        line = db.execute("SELECT * FROM users WHERE name = ? AND WHERE password = ?", login_id, login_pass)
+
         # セッションにidを代入
+        session["user_id"] = line[0]["user_id"]
+
         # page移動
+        return redirect("/")
 
     # /loginにアクセスしただけの場合
-    # else:
+    else:
     return render_template("login.html")
 
 # 登録処理
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
-    # POST通信だった（フォームが送信された）場合
-    # if request.method == "POST":
+    POST通信だった（フォームが送信された）場合
+    if request.method == "POST":
 
-    #     # フォームの情報を取得
-    #     register_id = request.form.get("register_id")
-    #     register_pass = request.form.get("register_pass")
+        # フォームの情報を取得
+        register_id = request.form.get("register_id") # ユーザー名
+        register_pass = request.form.get("register_pass") # パスワード
 
         # 名前被りチェック
         # パスワードをハッシュ化
-        # データベースにformのデータを記録
-        # セッションにidを代入
+
+        # データベースにformのデータを記録 & 返ってきた主キーをuser_idへ代入
+        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, register_pass)
+
+        # セッションにuser_idを代入
+        session["user_id"] = user_id
+
         # page移動
+        return redirect('/')
 
     # /registerにアクセスしただけの場合
-    # else:
+    else:
     return render_template("register.html")
 
 # 記録処理
@@ -112,12 +128,13 @@ def record():
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
+            db.execute("INSERT INTO errors (language, message, explain) VALUES(?, ?, ?)", language, error, explanation)
             return render_template("unsolved.html")
 
         # 解決できた場合
-
         else:
             flash("記録しました！解決できてすごい！")
+            db.execute("INSERT INTO errors (language, message, explain, solved) VALUES(?, ?, ?, ?)", language, error, explanation, solution)
             return render_template("solved.html")
 
     else:
@@ -129,7 +146,6 @@ def record():
 # @login_required
 def display_unsolved():
 
-    db = SQL("sqlite:///sns.db")
 
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
