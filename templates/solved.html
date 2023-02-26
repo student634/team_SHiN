@@ -7,7 +7,7 @@
 {% block body %}
 
     <h2>解決済みエラー</h2>
-    <table border="10">
+    <table border="1">
         <tr>
             <th>エラー投稿日時</th>
             <th>エラー解決日時</th>
@@ -15,16 +15,14 @@
             <th>エラー文</th>
             <th>状況説明</th>
         </tr>
-        <tbody>
-                {% for solved_error in solved_errors %}
-                    <tr>
-                        <td>{{ solved_error.before_day }}</td>
-                        <td>{{ solved_error.after_day }}</td>
-                        <td>{{ solved_error.language }}</td>
-                        <td>{{ solved_error.explain }}</td>
-                    </tr>
-                {% endfor %}
-        </tbody>
+        {% for solved_error in solved_errors %}
+            <tr>
+                <td>{{ solved_error.before_day }}</td>
+                <td>{{ solved_error.after_day }}</td>
+                <td>{{ solved_error.language }}</td>
+                <td>{{ solved_error.explain }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
 {% endblock %}
