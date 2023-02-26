@@ -1,5 +1,3 @@
-<!--unsolved.html はどうでしょうか　石森-->
-
 {% extends "base.html" %}
 
 {% block title %}
@@ -12,20 +10,19 @@
     <table>
         <thead>
             <tr>
-                <th>日時</th>
+                <th>エラー投稿日時</th>
                 <th>言語</th>
                 <th>エラー文</th>
                 <th>状況説明</th>
             </tr>
         </thead>
         <tbody>
-            <!-- TODO: Loop through the database entries to display them in this table -->
-                {% for outstanding_error in outstanding_errors %}
+                {% for unsolved_error in unsolved_errors %}
                     <tr>
-                        <td>{{ outstanding_error }}</td>
-                        <td>{{ a }}</td>
-                        <td>{{ b }}</td>
-                        <td>{{ c }}</td>
+                        <td>{{ unsolved_error.before_day }}</td>
+                        <td>{{ unsolved_error.language }}</td>
+                        <td>{{ unsolved_error.message }}</td>
+                        <td>{{ unsolved_error.explain }}</td>
                     </tr>
                 {% endfor %}
         </tbody>

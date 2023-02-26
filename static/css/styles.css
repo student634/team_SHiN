@@ -3,8 +3,18 @@ body{
   color: #333333;
 }
 
-div.home{
-  text-align:center;
+.flex{
+  display: flex; /* 横並びに */
+  flex-wrap: wrap; /* 折り返す */
+}
+
+.flexbox-center {
+  display: flex; /* 子要素をflexboxで揃える */
+  flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
+  justify-content: center; /* 子要素をflexboxにより中央に配置する */
+  align-items: center;  /* 子要素をflexboxにより中央に配置する */
+  width: 400px;
+  /* border: 1px solid; */
 }
 
 .home-button {
@@ -19,7 +29,7 @@ div.home{
 	margin: 20px;
 	padding:10px;
 	border-radius: 3%;
-	background: #6a6e78;
+	background: #aa9fa0;
 	background-size: 400%;
 	color: #fff;
 }
@@ -45,8 +55,23 @@ div.home{
   border-radius: inherit;
   background: linear-gradient(
     82.3deg,
-    #c9ceb7 10.8%,
+    #84ccc9 10.8%,
     #eae4d6 94.3%
   );
   transition: all 0.475s;
+}
+
+.login-box{
+  display:block;
+  width: 50%;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #aa9fa0;
+  border-radius: 4%;
+}
+.photo{
+  width:63vw;
+  height:100vh;
+  object-fit:cover;
+  filter: blur(0.5px);
 }
