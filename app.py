@@ -144,7 +144,6 @@ def record():
 # @login_required
 def display_unsolved():
 
-
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
 
