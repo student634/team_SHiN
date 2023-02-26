@@ -112,34 +112,34 @@ def record():
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
-            return render_template("outstanding.html")
-
+            return render_template("unsolved.html")
+            
         # 解決できた場合
         else:
             flash("記録しました！解決できてすごい！")
-            return render_template("resolved.html")
+            return render_template("solved.html")
 
     else:
         return render_template("record.html")
 
 #イシモリ #最終更新 2/25
 # 未解決のエラーを表示
-@app.route("/outstanding")
+@app.route("/unsolved")
 # @login_required
-def display_outstanding():
+def display_unsolved():
 
     db = SQL("sqlite:///sns.db")
 
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
-    # outstanding_errors = db.execute("SELECT ~")
+    # unsolved_errors = db.execute("SELECT ~")
 
     return render_template("unsolved.html", unsolved_errors=unsolved_errors)
 
 #解決済みのエラーを表示
-@app.route("/resolved")
+@app.route("/solved")
 # @login_required
-def display_resolved():
+def display_solved():
 
     db = SQL("sqlite:///sns.db")
 
@@ -147,7 +147,7 @@ def display_resolved():
 
     solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
 
-    # resolved_errors = db.execute("SELECT ~")
+    # solved_errors = db.execute("SELECT ~")
 
 
     return render_template("solved.html", solved_errors=solved_errors)
