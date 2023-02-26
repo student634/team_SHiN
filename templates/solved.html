@@ -7,16 +7,14 @@
 {% block body %}
 
     <h2>解決済みエラー</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>エラー投稿日時</th>
-                <th>エラー解決日時</th>
-                <th>言語</th>
-                <th>エラー文</th>
-                <th>状況説明</th>
-            </tr>
-        </thead>
+    <table border="10">
+        <tr>
+            <th>エラー投稿日時</th>
+            <th>エラー解決日時</th>
+            <th>言語</th>
+            <th>エラー文</th>
+            <th>状況説明</th>
+        </tr>
         <tbody>
                 {% for solved_error in solved_errors %}
                     <tr>
