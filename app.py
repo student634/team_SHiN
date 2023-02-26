@@ -47,7 +47,7 @@ def home():
 # ログイン処理
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    それまで保存されていたセッションを消去
+    # それまで保存されていたセッションを消去
     session.clear()
 
     # POST通信だった（フォームが送信された）場合
@@ -68,13 +68,13 @@ def login():
 
     # /loginにアクセスしただけの場合
     else:
-    return render_template("login.html")
+        return render_template("login.html")
 
 # 登録処理
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
-    POST通信だった（フォームが送信された）場合
+    # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
 
         # フォームの情報を取得
@@ -95,7 +95,7 @@ def register():
 
     # /registerにアクセスしただけの場合
     else:
-    return render_template("register.html")
+        return render_template("register.html")
 
 # 記録処理
 # 中井が担当
