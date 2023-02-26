@@ -113,7 +113,7 @@ def record():
         if not solution:
             flash("記録しました！頑張ったね！")
             return render_template("unsolved.html")
-            
+
         # 解決できた場合
 
         else:
@@ -146,7 +146,7 @@ def display_solved():
 
     # 解決済みのエラーをデータベースから取り出し、格納
 
-    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", 1)#######session["user_id"])
 
     # solved_errors = db.execute("SELECT ~")
 
