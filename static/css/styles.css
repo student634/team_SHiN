@@ -3,8 +3,8 @@ body{
   color: #333333;
 }
 
-.home{
-  justify-content:center;
+div.home{
+  text-align:center;
 }
 
 .home-button {
@@ -27,7 +27,7 @@ body{
   transform: scaleX(1);
 }
 .home-button:hover {
-	color: #fff;
+	color: #333333;
 }
 .home-button span {
   position: relative;
@@ -45,8 +45,8 @@ body{
   border-radius: inherit;
   background: linear-gradient(
     82.3deg,
-    #a9cae7 10.8%,
-    #789bec 94.3%
+    #c9ceb7 10.8%,
+    #eae4d6 94.3%
   );
   transition: all 0.475s;
 }
