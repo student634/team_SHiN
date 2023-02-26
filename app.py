@@ -9,8 +9,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
-db = SQL("sqlite:///sns.db")
-
 # 空の辞書
 # REGISTANTS = {}
 
@@ -156,8 +154,6 @@ def display_unsolved():
 @app.route("/solved")
 # @login_required
 def display_solved():
-
-    db = SQL("sqlite:///sns.db")
 
     # 解決済みのエラーをデータベースから取り出し、格納
     solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
