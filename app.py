@@ -133,7 +133,6 @@ def display_unsolved():
 
     # 未解決エラーをデータベースから取り出し、格納
     unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
-    # unsolved_errors = db.execute("SELECT ~")
 
     return render_template("unsolved.html", unsolved_errors=unsolved_errors)
 
@@ -145,11 +144,7 @@ def display_solved():
     db = SQL("sqlite:///sns.db")
 
     # 解決済みのエラーをデータベースから取り出し、格納
-
     solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=1") #, session["user_id"])
-
-    # solved_errors = db.execute("SELECT ~")
-
 
     return render_template("solved.html", solved_errors=solved_errors)
 
