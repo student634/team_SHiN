@@ -3,6 +3,13 @@ body{
   color: #333333;
 }
 
+/* デザイン画像ができるまでの一時的フッター */
+footer{
+  background-color: #aa9fa0;
+  height: 40px;
+  margin-top:160px;
+}
+
 .flex{
   display: flex; /* 横並びに */
   flex-wrap: wrap; /* 折り返す */
@@ -63,12 +70,25 @@ body{
 
 .login-box{
   display:block;
-  width: 50%;
+  width: 35%;
   margin: 50px auto;
   padding: 30px;
   background-color: #aa9fa0;
-  border-radius: 4%;
+  color: #fff;
+  border-radius: 20px;
+  align-items: center;
 }
+
+.button{
+  color: #fff;
+  padding: 15px;
+  border-style: solid;
+  border-color: #fff;
+  border-radius: 10px;
+  display: block;
+  margin: 50px auto auto auto;
+}
+
 .photo{
   width:63vw;
   height:100vh;

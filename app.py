@@ -46,7 +46,7 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
-    session.clear()
+    # session.clear()
 
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
