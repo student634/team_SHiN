@@ -9,6 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
+# session用にキーを設定
+app.secret_key = 'dugfvbqeako'
+
 # 空の辞書
 # REGISTANTS = {}
 
@@ -46,7 +49,7 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
-    # session.clear()
+    session.clear()
 
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
@@ -56,13 +59,28 @@ def login():
         login_pass = request.form.get("login_pass") # パスワード
 
         # データベースから（ユーザー名・パスワード）が一致する行を抜き出し
-        line = db.execute("SELECT * FROM users WHERE name = ? AND WHERE password = ?", login_id, login_pass)
+        line = db.execute("SELECT * FROM users WHERE name = ?", login_id)
+
+        if not line:
+            flash(" ユーザー名が一致しません")
+            return render_template("login.html")
+
+        # # ユーザー名が一致しない場合
+        # if login_id != line[0]["name"]:
+        #     flash("ユーザー名が一致しません")
+        #     return redirect("/login")
+
+        # パスワードが一致しない場合
+        elif not check_password_hash(line[0]["password"], login_pass):
+            flash("パスワードが一致しません")
+            return render_template("login.html")
 
         # セッションにidを代入
         session["user_id"] = line[0]["user_id"]
 
         # page移動
-        return redirect("record.html")
+        flash("ログインしました")
+        return render_template("/record.html")
 
     # /loginにアクセスしただけの場合
     else:
@@ -79,7 +97,12 @@ def register():
         register_id = request.form.get("register_id") # ユーザー名
         register_pass = request.form.get("register_pass") # パスワード
 
-        # 名前被りチェック
+        # 名前被りチェック（formでの入力名がデータベースに存在するなら1以上の戻り値になる）
+        name_check = db.execute('SELECT EXISTS(SELECT * FROM users WHERE name = ?) AS name_check', register_id)
+        if name_check[0]['name_check'] != 0:
+            flash("この名前は既に使われています")
+            return redirect("/register")
+
         # パスワードをハッシュ化
         hashed_password = generate_password_hash(register_pass, method='pbkdf2:sha256', salt_length=8)
 
@@ -90,6 +113,7 @@ def register():
         session["user_id"] = user_id
 
         # page移動
+        flash("登録しました")
         return redirect('record.html')
 
     # /registerにアクセスしただけの場合
