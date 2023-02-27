@@ -62,7 +62,7 @@ def login():
         session["user_id"] = line[0]["user_id"]
 
         # page移動
-        return redirect("/")
+        return redirect("record.html")
 
     # /loginにアクセスしただけの場合
     else:
@@ -81,15 +81,16 @@ def register():
 
         # 名前被りチェック
         # パスワードをハッシュ化
+        hashed_password = generate_password_hash(register_pass, method='pbkdf2:sha256', salt_length=8)
 
         # データベースにformのデータを記録 & 返ってきた主キーをuser_idへ代入
-        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, register_pass)
+        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, hashed_password)
 
         # セッションにuser_idを代入
         session["user_id"] = user_id
 
         # page移動
-        return redirect('/')
+        return redirect('record.html')
 
     # /registerにアクセスしただけの場合
     else:
