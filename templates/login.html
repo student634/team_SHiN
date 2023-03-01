@@ -6,6 +6,10 @@
 
 {% block body %}
 
+    {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+    {% endif %}
+
     <form method="POST" action="/login" class = "login-box">
         <div class="mb-3">
             <label class="form-label">ユーザー名</label>
