@@ -6,26 +6,38 @@
 
 {% block body %}
 
-    <h2>未解決エラー</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>エラー投稿日時</th>
-                <th>言語</th>
-                <th>エラー文</th>
-                <th>状況説明</th>
-            </tr>
-        </thead>
-        <tbody>
-                {% for unsolved_error in unsolved_errors %}
-                    <tr>
-                        <td>{{ unsolved_error.before_day }}</td>
-                        <td>{{ unsolved_error.language }}</td>
-                        <td>{{ unsolved_error.message }}</td>
-                        <td>{{ unsolved_error.explain }}</td>
-                    </tr>
+    <h2>未解決</h2>
+
+    <hr>
+    <form action="/unsolved" method="POST">
+        <div>
+            <select name="language">
+                    <option disabled selected>言語を選択してください</option>
+                    <option>すべての言語</option>
+                {% for language in languages %}
+                    <option>{{ language }}</option>
                 {% endfor %}
-        </tbody>
+            </select>
+        </div>
+        <button type="submit">絞る</button>
+    </form>
+    <hr>
+
+    <table>
+        <tr>
+            <th>エラー投稿日時</th>
+            <th>言語</th>
+            <th>エラー文</th>
+            <th>状況説明</th>
+        </tr>
+        {% for unsolved_error in unsolved_errors %}
+            <tr>
+                <td>{{ unsolved_error.before_day }}</td>
+                <td>{{ unsolved_error.language }}</td>
+                <td>{{ unsolved_error.message }}</td>
+                <td>{{ unsolved_error.explain }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
 {% endblock %}

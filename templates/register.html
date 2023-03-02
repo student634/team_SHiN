@@ -6,16 +6,18 @@
 
 {% block body %}
 
-    <form method="POST" action="/register">
-        <div>
+    <form method="POST" action="/register"  class = "login-box">
+        <div class="mb-3">
             <label class="form-label">ユーザー名</label>
             <input class="form-control" autofocus name="register_id" type="text" placeholder="ユーザー名"  required>
         </div>
-        <div>
+        <div class="mb-3">
             <label class="form-label">パスワード</label>
             <input class="form-control" type="password" name="register_pass" placeholder="パスワード" required>
         </div>
-        <button class="btn" type="submit">新規登録</button>
+        <button class="button" type="submit">新規登録</button>
     </form>
+
+    <footer></footer>
 
 {% endblock %}

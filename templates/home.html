@@ -6,11 +6,19 @@
 
 {% block body %}
 
-
-    <div class="home">
-        <a href="/login" role="button" class = "home-button"><span>ログイン</span></a>
-        <a href="/register" role="button" class = "home-button"><span>新規登録</span></a>
+    <div class = "flex">
+        <div>
+            <img src="./static/images/photo.jpg" alt="photo" class = "photo">
+        </div>
+        <div class="flexbox-center">
+            <h1>バグパク</h1>
+            <br>
+            <br>
+            <a href="/login" role="button" class = "home-button"><span>ログイン</span></a>
+            <a href="/register" role="button" class = "home-button"><span>新規登録</span></a>
+        </div>
     </div>
+
 
 
 {% endblock %}
