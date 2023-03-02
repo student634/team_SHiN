@@ -4,7 +4,8 @@
     Record
 {% endblock %}
 
-{% block main %}
+{% block body %}
+
     <form action="/record" method="post">
         <div class="mb-3">
             <!-- autofocusいるかな？ -->
@@ -12,9 +13,9 @@
             <!-- <input autocoplete="off" autofocus name="language" placeholder="学習した言語を選んでください" type="text"> -->
             <select name="language">
                 <option disable selected>学習した言語を選択してください</option>
-                {% for lan in language}
+                {% for lan in language %}
                 <option>{{ lan }}</option>
-                {% end for %}
+                {% endfor %}
             </select>
             <input autocomplete="off" name="error" placeholder="エラーをターミナルからコピーして入力してください" type="text" required>
             <input autocomplete="off" name="explanation" placeholder="説明文を入力してください" type="text" required>

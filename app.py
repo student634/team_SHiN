@@ -113,15 +113,15 @@ def record():
         solution = request.form.get("solution")
 
         # apology 作らないといけない,helpers.pyみたいなの
-        if not language:
-            return apology("missing language", 400)
+        # if not language:
+        #     return apology("missing language", 400)
 
 
-        if not error:
-            return apology("please enter an error", 400)
+        # if not error:
+        #     return apology("please enter an error", 400)
 
-        if not explanation:
-            return apology("Please explain the situation", 400)
+        # if not explanation:
+        #     return apology("Please explain the situation", 400)
 
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
