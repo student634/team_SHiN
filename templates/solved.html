@@ -6,7 +6,23 @@
 
 {% block body %}
 
-    <h2>解決済みエラー</h2>
+    <h2>解決済み</h2>
+
+    <hr>
+    <form action="/unsolved" method="POST">
+        <div>
+            <select name="language">
+                    <option disabled selected>言語を選択してください</option>
+                    <option>すべての言語</option>
+                {% for language in languages %}
+                    <option>{{ language }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">絞る</button>
+    </form>
+    <hr>
+
     <table>
         <tr>
             <th>エラー投稿日時</th>
