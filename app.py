@@ -163,27 +163,65 @@ def record():
     else:
         return render_template("record.html", language=LANGUAGES)
 
-#イシモリ #最終更新 2/25
-# 未解決のエラーを表示
-@app.route("/unsolved")
+#イシモリ #最終更新 2/26
+# 未解決を表示
+@app.route("/unsolved", methods=["GET", "POST"])
 # @login_required
 def display_unsolved():
 
-    # 未解決エラーをデータベースから取り出し、格納
-    unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+    # 後で消す
+    session["user_id"] = 2
 
-    return render_template("unsolved.html", unsolved_errors=unsolved_errors)
+    if request.method == "GET":
+
+        # すべての未解決を全てデータベースから取り出し、格納
+        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+
+    else:
+        # どの言語で絞るか form から受け取る
+        language = request.form.get("language")
+
+        if language == "すべての言語":
+            # すべての未解決をデータベースから取り出し、格納
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+        else:
+            # 特定の言語の未解決をデータベースから取り出し、格納
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=? AND language=?", session["user_id"], language)
+
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+
 
 #解決済みのエラーを表示
-@app.route("/solved")
+@app.route("/solved", methods=["GET", "POST"])
 # @login_required
 def display_solved():
 
-    # 解決済みのエラーをデータベースから取り出し、格納
-    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+    # 後で消す
+    session["user_id"] = 2
 
-    return render_template("solved.html", solved_errors=solved_errors)
+    if request.method == "GET":
 
+        # 解決済みを全てデータベースから取り出し、格納
+        solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
+
+    else:
+        # どの言語で絞るか form から受け取る
+        language = request.form.get("language")
+
+        if language == "すべての言語":
+            # すべての解決済みをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+        else:
+            # 特定の言語の未解決エラーをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=? AND language=?", session["user_id"], language)
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
 #####イシモリ
+
+
 if __name__ == "__main__":
     app.run(debug=True)
