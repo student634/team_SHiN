@@ -5,9 +5,42 @@
 {% endblock %}
 
 {% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-brand">Profile</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">neme:{{}}</li>
+                    <li class="nav-item">error:{{}}</li>             <!-- ここ修正 -->
+                    <li class="nav-item">solved:{{}}</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <h2>未解決エラー</h2>
-    <table>
+    {% for solved_error in solved_errors %}
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    {{ solved_error.message }}
+                    </button>
+                </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+                <ul>
+                    <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
+                    <li>{{ solved_error.language }}</li>
+                    <li>{{ solved_error.explain }}</li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- <table>
         <thead>
             <tr>
                 <th>エラー投稿日時</th>
@@ -26,6 +59,6 @@
                     </tr>
                 {% endfor %}
         </tbody>
-    </table>
+    </table> -->
 
 {% endblock %}
