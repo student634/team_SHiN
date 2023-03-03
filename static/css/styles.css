@@ -4,10 +4,14 @@ body{
 }
 
 /* デザイン画像ができるまでの一時的フッター */
-footer{
+/* footer{
   background-color: #aa9fa0;
   height: 40px;
   margin-top:160px;
+} */
+
+.footer1{
+  width: 100%;
 }
 
 .home{
@@ -40,7 +44,8 @@ footer{
 }
 
 .center-box h1{
-  text-align: center
+  text-align: center;
+  margin-right:45px;
 }
 
 .home-button {
@@ -108,9 +113,7 @@ footer{
   margin: 50px auto auto auto;
 }
 
-.photo{
-  width:63vw;
-  height:100vh;
-  object-fit:cover;
-  filter: blur(0.5px);
+.icon{
+  height:70px;
+  background-size: cover;
 }
