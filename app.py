@@ -9,6 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
+# session用にキーを設定
+app.secret_key = 'dugfvbqeako'
+
 # 空の辞書
 # REGISTANTS = {}
 
@@ -30,7 +33,8 @@ LANGUAGES = [
     "AWS",
     "Swift",
     "HTML",
-    "CSS"
+    "CSS",
+    "その他"
 ]
 
 # データベースを紐付ける
@@ -46,7 +50,7 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # それまで保存されていたセッションを消去
-    # session.clear()
+    session.clear()
 
     # POST通信だった（フォームが送信された）場合
     if request.method == "POST":
@@ -56,13 +60,28 @@ def login():
         login_pass = request.form.get("login_pass") # パスワード
 
         # データベースから（ユーザー名・パスワード）が一致する行を抜き出し
-        line = db.execute("SELECT * FROM users WHERE name = ? AND WHERE password = ?", login_id, login_pass)
+        line = db.execute("SELECT * FROM users WHERE name = ?", login_id)
+
+        if not line:
+            flash(" ユーザー名が一致しません")
+            return render_template("login.html")
+
+        # # ユーザー名が一致しない場合
+        # if login_id != line[0]["name"]:
+        #     flash("ユーザー名が一致しません")
+        #     return redirect("/login")
+
+        # パスワードが一致しない場合
+        elif not check_password_hash(line[0]["password"], login_pass):
+            flash("パスワードが一致しません")
+            return render_template("login.html")
 
         # セッションにidを代入
         session["user_id"] = line[0]["user_id"]
 
         # page移動
-        return redirect("/")
+        flash("ログインしました")
+        return render_template("/record.html")
 
     # /loginにアクセスしただけの場合
     else:
@@ -79,17 +98,24 @@ def register():
         register_id = request.form.get("register_id") # ユーザー名
         register_pass = request.form.get("register_pass") # パスワード
 
-        # 名前被りチェック
+        # 名前被りチェック（formでの入力名がデータベースに存在するなら1以上の戻り値になる）
+        name_check = db.execute('SELECT EXISTS(SELECT * FROM users WHERE name = ?) AS name_check', register_id)
+        if name_check[0]['name_check'] != 0:
+            flash("この名前は既に使われています")
+            return redirect("/register")
+
         # パスワードをハッシュ化
+        hashed_password = generate_password_hash(register_pass, method='pbkdf2:sha256', salt_length=8)
 
         # データベースにformのデータを記録 & 返ってきた主キーをuser_idへ代入
-        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, register_pass)
+        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, hashed_password)
 
         # セッションにuser_idを代入
         session["user_id"] = user_id
 
         # page移動
-        return redirect('/')
+        flash("登録しました")
+        return redirect('record.html')
 
     # /registerにアクセスしただけの場合
     else:
@@ -113,15 +139,15 @@ def record():
         solution = request.form.get("solution")
 
         # apology 作らないといけない,helpers.pyみたいなの
-        if not language:
-            return apology("missing language", 400)
+        # if not language:
+        #     return apology("missing language", 400)
 
 
-        if not error:
-            return apology("please enter an error", 400)
+        # if not error:
+        #     return apology("please enter an error", 400)
 
-        if not explanation:
-            return apology("Please explain the situation", 400)
+        # if not explanation:
+        #     return apology("Please explain the situation", 400)
 
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
@@ -138,27 +164,65 @@ def record():
     else:
         return render_template("record.html", language=LANGUAGES)
 
-#イシモリ #最終更新 2/25
-# 未解決のエラーを表示
-@app.route("/unsolved")
+#イシモリ #最終更新 2/26
+# 未解決を表示
+@app.route("/unsolved", methods=["GET", "POST"])
 # @login_required
 def display_unsolved():
 
-    # 未解決エラーをデータベースから取り出し、格納
-    unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+    # 後で消す
+    session["user_id"] = 2
 
-    return render_template("unsolved.html", unsolved_errors=unsolved_errors)
+    if request.method == "GET":
+
+        # すべての未解決を全てデータベースから取り出し、格納
+        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+
+    else:
+        # どの言語で絞るか form から受け取る
+        language = request.form.get("language")
+
+        if language == "すべての言語":
+            # すべての未解決をデータベースから取り出し、格納
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+        else:
+            # 特定の言語の未解決をデータベースから取り出し、格納
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=? AND language=?", session["user_id"], language)
+
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+
 
 #解決済みのエラーを表示
-@app.route("/solved")
+@app.route("/solved", methods=["GET", "POST"])
 # @login_required
 def display_solved():
 
-    # 解決済みのエラーをデータベースから取り出し、格納
-    solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+    # 後で消す
+    session["user_id"] = 2
 
-    return render_template("solved.html", solved_errors=solved_errors)
+    if request.method == "GET":
 
+        # 解決済みを全てデータベースから取り出し、格納
+        solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
+
+    else:
+        # どの言語で絞るか form から受け取る
+        language = request.form.get("language")
+
+        if language == "すべての言語":
+            # すべての解決済みをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+        else:
+            # 特定の言語の未解決エラーをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=? AND language=?", session["user_id"], language)
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
 #####イシモリ
+
+
 if __name__ == "__main__":
     app.run(debug=True)
