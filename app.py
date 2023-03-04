@@ -33,7 +33,8 @@ LANGUAGES = [
     "AWS",
     "Swift",
     "HTML",
-    "CSS"
+    "CSS",
+    "その他"
 ]
 
 # データベースを紐付ける
