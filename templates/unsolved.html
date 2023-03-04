@@ -5,8 +5,22 @@
 {% endblock %}
 
 {% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-brand">Profile</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">neme:{{}}</li>
+                    <li class="nav-item">error:{{}}</li>             <!-- ここ修正 -->
+                    <li class="nav-item">solved:{{}}</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <h2>未解決</h2>
 
     <hr>
     <form action="/unsolved" method="POST">
@@ -23,21 +37,25 @@
     </form>
     <hr>
 
-    <table>
-        <tr>
-            <th>エラー投稿日時</th>
-            <th>言語</th>
-            <th>エラー文</th>
-            <th>状況説明</th>
-        </tr>
-        {% for unsolved_error in unsolved_errors %}
-            <tr>
-                <td>{{ unsolved_error.before_day }}</td>
-                <td>{{ unsolved_error.language }}</td>
-                <td>{{ unsolved_error.message }}</td>
-                <td>{{ unsolved_error.explain }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <h2>未解決エラー</h2>
+    {% for solved_error in solved_errors %}
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    {{ unsolved_error.message }}
+                    </button>
+                </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+                <ul>
+                    <li>投稿日時:{{ unsolved_error.before_day }}エラー解決日時:{{ unsolved_error.after_day }}</li>
+                    <li>{{ unsolved_error.language }}</li>
+                    <li>{{ unsolved_error.explain }}</li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+    <footer><img src="./static/images/footer1.png" alt="icon" class = "footer1"></footer>
 
 {% endblock %}
