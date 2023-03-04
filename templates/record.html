@@ -17,9 +17,17 @@
                 <option>{{ lan }}</option>
                 {% endfor %}
             </select>
+
+            <!-- <p>学習した言語が見つかりませんか？</p>
+            <input autocomplete="off" name="add" placeholder="追加したい言語を入力してください" type="text"> -->
+            
+            <p></p>
             <input autocomplete="off" name="error" placeholder="エラーをターミナルからコピーして入力してください" type="text" required>
+            <p></p>
             <input autocomplete="off" name="explanation" placeholder="説明文を入力してください" type="text" required>
+            <p></p>
             <input autocomplete="off" name="solution" placeholder="解決策を入力してください" type="text">
+            <p></p>
             <button type="submit">解決</button>
             <button type="submit">未解決</button>
         </div>

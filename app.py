@@ -131,12 +131,20 @@ def record():
 
         # エラー言語（選ぶ）formじゃないかも?
         language = request.form.get("language")
+
+        # 追加言語
+        # add = request.form.get("add")
+        # LANGUAGES.append(add)
+
         # エラー
         error = request.form.get("error")
         # 状況説明
         explanation = request.form.get("explanation")
         # 解決策
         solution = request.form.get("solution")
+
+        # ユーザーと結びつける
+        username = db.execute("SELECT username FROM users WHERE id = ?" ,session["user_id"])
 
         # apology 作らないといけない,helpers.pyみたいなの
         # if not language:
@@ -152,13 +160,13 @@ def record():
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
-            db.execute("INSERT INTO errors (language, message, explain) VALUES(?, ?, ?)", language, error, explanation)
+            db.execute("INSERT INTO errors (username, language, message, explain) VALUES(?, ?, ?, ?)", username, language, error, explanation)
             return render_template("unsolved.html")
 
         # 解決できた場合
         else:
             flash("記録しました！解決できてすごい！")
-            db.execute("INSERT INTO errors (language, message, explain, solved) VALUES(?, ?, ?, ?)", language, error, explanation, solution)
+            db.execute("INSERT INTO errors (username, language, message, explain, solved) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, solution)
             return render_template("solved.html")
 
     else:
