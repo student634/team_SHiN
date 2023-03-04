@@ -124,7 +124,7 @@ def register():
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-@login_required
+# @login_required
 def record():
 
     if request.method == "POST":
@@ -175,7 +175,7 @@ def record():
 #イシモリ #最終更新 2/26
 # 未解決を表示
 @app.route("/unsolved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_unsolved():
 
     # 後で消す
@@ -204,7 +204,7 @@ def display_unsolved():
 
 #解決済みのエラーを表示
 @app.route("/solved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_solved():
 
     # 後で消す
