@@ -185,5 +185,7 @@ def display_solved():
     return render_template("solved.html", solved_errors=solved_errors)
 
 #####イシモリ
+
+
 if __name__ == "__main__":
     app.run(debug=True)

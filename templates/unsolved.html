@@ -27,15 +27,15 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    {{ solved_error.message }}
+                    {{ unsolved_error.message }}
                     </button>
                 </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
                 <ul>
-                    <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
-                    <li>{{ solved_error.language }}</li>
-                    <li>{{ solved_error.explain }}</li>
+                    <li>投稿日時:{{ unsolved_error.before_day }}エラー解決日時:{{ unsolved_error.after_day }}</li>
+                    <li>{{ unsolved_error.language }}</li>
+                    <li>{{ unsolved_error.explain }}</li>
                 </ul>
             </div>
         </div>
