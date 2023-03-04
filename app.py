@@ -81,7 +81,7 @@ def login():
 
         # page移動
         flash("ログインしました")
-        return render_template("/record.html")
+        return redirect("/solved")
 
     # /loginにアクセスしただけの場合
     else:
