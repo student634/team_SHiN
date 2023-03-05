@@ -6,8 +6,17 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
+from functools import wraps
 
 app = Flask(__name__)
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
 
 # session用にキーを設定
 app.secret_key = 'dugfvbqeako'
@@ -63,7 +72,7 @@ def login():
         line = db.execute("SELECT * FROM users WHERE name = ?", login_id)
 
         if not line:
-            flash(" ユーザー名が一致しません")
+            # flash(" ユーザー名が一致しません")
             return render_template("login.html")
 
         # # ユーザー名が一致しない場合
@@ -73,14 +82,14 @@ def login():
 
         # パスワードが一致しない場合
         elif not check_password_hash(line[0]["password"], login_pass):
-            flash("パスワードが一致しません")
+            # flash("パスワードが一致しません")
             return render_template("login.html")
 
         # セッションにidを代入
-        session["user_id"] = line[0]["user_id"]
+        session["user_id"] = line[0]["name"] # user_idではない！
 
         # page移動
-        flash("ログインしました")
+        # flash("ログインしました")
         return redirect("/solved")
 
     # /loginにアクセスしただけの場合
@@ -107,14 +116,14 @@ def register():
         # パスワードをハッシュ化
         hashed_password = generate_password_hash(register_pass, method='pbkdf2:sha256', salt_length=8)
 
-        # データベースにformのデータを記録 & 返ってきた主キーをuser_idへ代入
-        user_id = db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, hashed_password)
+        # データベースにformのデータを記録
+        db.execute("INSERT INTO users (name, password) VALUES (?,?)", register_id, hashed_password)
 
-        # セッションにuser_idを代入
-        session["user_id"] = user_id
+        # セッションにregister_id（ユーザー名）を代入
+        session["user_id"] = register_id
 
         # page移動
-        flash("登録しました")
+        # flash("登録しました")
         return redirect("/solved")
 
     # /registerにアクセスしただけの場合
@@ -186,7 +195,7 @@ def display_unsolved():
     if request.method == "GET":
 
         # すべての未解決を全てデータベースから取り出し、格納
-        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=?", session["user_id"]) # これ以降AND user_id=?の部分AND usernmae=?に変えてます
 
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
 
@@ -196,10 +205,10 @@ def display_unsolved():
 
         if language == "すべての言語":
             # すべての未解決をデータベースから取り出し、格納
-            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=?", session["user_id"])
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=?", session["user_id"])
         else:
             # 特定の言語の未解決をデータベースから取り出し、格納
-            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND user_id=? AND language=?", session["user_id"], language)
+            unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=? AND language=?", session["user_id"], language)
 
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
 
@@ -215,7 +224,7 @@ def display_solved():
     if request.method == "GET":
 
         # 解決済みを全てデータベースから取り出し、格納
-        solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+        solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND username=?", session["user_id"])
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
 
@@ -225,10 +234,10 @@ def display_solved():
 
         if language == "すべての言語":
             # すべての解決済みをデータベースから取り出し、格納
-            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=?", session["user_id"])
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND username=?", session["user_id"])
         else:
             # 特定の言語の未解決エラーをデータベースから取り出し、格納
-            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND user_id=? AND language=?", session["user_id"], language)
+            solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND username=? AND language=?", session["user_id"], language)
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
 #####イシモリ

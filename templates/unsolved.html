@@ -40,22 +40,16 @@
 
     <h2>未解決エラー</h2>
     {% for solved_error in solved_errors %}
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    {{ unsolved_error.message }}
-                    </button>
-                </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-                <ul>
+    <details>
+        <summary>{{ unsolved_error.message }}</summary>
+            <div>
+                <ul class="box-detail">
                     <li>投稿日時:{{ unsolved_error.before_day }}エラー解決日時:{{ unsolved_error.after_day }}</li>
                     <li>{{ unsolved_error.language }}</li>
                     <li>{{ unsolved_error.explain }}</li>
                 </ul>
             </div>
-        </div>
+        </details>
     {% endfor %}
     <footer><img src="./static/images/footer1.png" alt="icon" class = "footer1"></footer>
 
