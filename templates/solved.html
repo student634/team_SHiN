@@ -39,22 +39,16 @@
 
     <h2>解決済みエラー</h2>
     {% for solved_error in solved_errors %}
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    {{ solved_error.message }}
-                    </button>
-                </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-                <ul>
-                    <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
-                    <li>{{ solved_error.language }}</li>
-                    <li>{{ solved_error.explain }}</li>
-                </ul>
-            </div>
+    <details>
+    <summary>{{ solved_error.message }}</summary>
+        <div>
+            <ul class="box-detail">
+                <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
+                <li>{{ solved_error.language }}</li>
+                <li>{{ solved_error.explain }}</li>
+            </ul>
         </div>
+    </details>
     {% endfor %}
 
     <footer><img src="./static/images/footer1.png" alt="icon" class = "footer1"></footer>
