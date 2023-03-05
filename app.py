@@ -124,12 +124,12 @@ def register():
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-@login_required
+# @login_required
 def record():
 
     if request.method == "POST":
 
-        # エラー言語（選ぶ）formじゃないかも?
+        # エラー言語（選ぶ）formじゃないかも? formであってます。
         language = request.form.get("language")
 
         # 追加言語
@@ -141,7 +141,7 @@ def record():
         # 状況説明
         explanation = request.form.get("explanation")
         # 解決策
-        solution = request.form.get("solution")
+        solution = request.form.get("solution")                            #解決･未解決をデータベースに追加してください
 
         # ユーザーと結びつける
         username = db.execute("SELECT username FROM users WHERE id = ?" ,session["user_id"])
@@ -175,7 +175,7 @@ def record():
 #イシモリ #最終更新 2/26
 # 未解決を表示
 @app.route("/unsolved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_unsolved():
 
     # 後で消す
@@ -204,7 +204,7 @@ def display_unsolved():
 
 #解決済みのエラーを表示
 @app.route("/solved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_solved():
 
     # 後で消す

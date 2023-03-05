@@ -10,6 +10,11 @@ body{
   margin-top:160px;
 } */
 
+h2{
+  text-align:center;
+  margin:40px;
+}
+
 .footer1{
   width: 100%;
 }
@@ -113,6 +118,15 @@ body{
   margin: 50px auto auto auto;
 }
 
+.button2{
+  padding: 10px 25px;
+  border-style: solid;
+  border-color: #aa9fa0;
+  border-radius: 10px;
+  display: block;
+  margin: 50px auto auto auto;
+}
+
 .icon{
   height:70px;
   background-size: cover;
@@ -147,10 +161,14 @@ details > summary { /* 折りたたみボックスの本のタイトル */
   background-color: #ffffff;
 }
 
+.form-box{
+  width:80%;
+  margin:auto;
+}
 
 /* 最初のローディング */
 
-/* Loading背景画面設定　*/
+/* Loading背景画面設定 */
 #splash {
   /*fixedで全面に固定*/
     position: fixed;
@@ -162,7 +180,7 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     color:#fff;
   }
 
-  /* Loading画像中央配置　*/
+  /* Loading画像中央配置 */
   #splash_logo {
     position: absolute;
     top: 50%;
@@ -170,7 +188,7 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     transform: translate(-50%, -50%);
   }
 
-  /* Loading アイコンの大きさ設定　*/
+  /* Loading アイコンの大きさ設定 */
   #splash_logo img {
     width:260px;
   }
