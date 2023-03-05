@@ -124,7 +124,7 @@ def register():
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-@login_required
+# @login_required
 def record():
 
     if request.method == "POST":
@@ -144,7 +144,7 @@ def record():
         solution = request.form.get("solution")
 
         # ユーザーと結びつける
-        username = db.execute("SELECT username FROM users WHERE id = ?" ,session["user_id"])
+        username = db.execute("SELECT name FROM users WHERE user_id = ?" ,session["user_id"])
 
         # apology 作らないといけない,helpers.pyみたいなの
         # if not language:
@@ -160,13 +160,15 @@ def record():
         # 未解決の場合（ボタンが押されたらにした方がいい？）
         if not solution:
             flash("記録しました！頑張ったね！")
-            db.execute("INSERT INTO errors (username, language, message, explain) VALUES(?, ?, ?, ?)", username, language, error, explanation)
+            public = False
+            db.execute("INSERT INTO errors (username, language, message, explain, public) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, public)
             return render_template("unsolved.html")
 
         # 解決できた場合
         else:
             flash("記録しました！解決できてすごい！")
-            db.execute("INSERT INTO errors (username, language, message, explain, solved) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, solution)
+            public = True
+            db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
             return render_template("solved.html")
 
     else:
@@ -175,7 +177,7 @@ def record():
 #イシモリ #最終更新 2/26
 # 未解決を表示
 @app.route("/unsolved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_unsolved():
 
     # 後で消す
@@ -204,7 +206,7 @@ def display_unsolved():
 
 #解決済みのエラーを表示
 @app.route("/solved", methods=["GET", "POST"])
-@login_required
+# @login_required
 def display_solved():
 
     # 後で消す
