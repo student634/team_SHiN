@@ -191,15 +191,8 @@ def record():
 @login_required
 def display_unsolved():
 
-<<<<<<< HEAD
     # 後で消す
     # session["user_id"] = name
-=======
-    # エラーの合計数
-    errors_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=?", session["user_id"])
-    # 未解決エラーの合計
-    unsolved_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=? AND solved LIKE 'unsolved'", session["user_id"])
->>>>>>> 589b92abf97a0f1e480192c6f3d4b7b3c58fa4be
 
     if request.method == "GET":
 
@@ -227,15 +220,12 @@ def display_unsolved():
 @login_required
 def display_solved():
 
-<<<<<<< HEAD
     # 後で消す
     # session["user_id"] = name
-=======
     # エラーの合計数
-    errors_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=?", session["user_id"])
+    errors_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=?", session["user_id"])
     # 解決済エラーの合計
-    solved_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=? AND solved LIKE 'solved'", session["user_id"])
->>>>>>> 589b92abf97a0f1e480192c6f3d4b7b3c58fa4be
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND solved LIKE 'solved'", session["user_id"])
 
     if request.method == "GET":
 
