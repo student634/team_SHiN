@@ -153,7 +153,7 @@ def record():
         solution = request.form.get("solution")                            #解決･未解決をデータベースに追加してください
 
         # ユーザーと結びつける
-        username = db.execute("SELECT name FROM users WHERE user_id = ?" ,session["user_id"])
+        username = db.execute("SELECT name FROM users WHERE name = ?" ,session["user_id"])
 
         # apology 作らないといけない,helpers.pyみたいなの
         # if not language:

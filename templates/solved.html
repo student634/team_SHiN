@@ -55,7 +55,7 @@
 {% endblock %}
 
 <!--
-名前:
-エラー数:
-解決数:
+名前:sessionにユーザー名を使っているのでそのままいける
+エラー数:SELECT COUNT(*) FROM errors WHERE username = ?, session[user_id]
+解決数:SELECT COUNT(*) FROM errors WHERE username = ? AND public = ?, session[user_id], True(仮)
 -->
