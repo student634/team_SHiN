@@ -185,21 +185,28 @@ def record():
     else:
         return render_template("record.html", language=LANGUAGES)
 
-#イシモリ #最終更新 2/26
+#イシモリ #最終更新 3/6
 # 未解決を表示
 @app.route("/unsolved", methods=["GET", "POST"])
 @login_required
 def display_unsolved():
 
+<<<<<<< HEAD
     # 後で消す
     # session["user_id"] = name
+=======
+    # エラーの合計数
+    errors_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=?", session["user_id"])
+    # 未解決エラーの合計
+    unsolved_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=? AND solved LIKE 'unsolved'", session["user_id"])
+>>>>>>> 589b92abf97a0f1e480192c6f3d4b7b3c58fa4be
 
     if request.method == "GET":
 
         # すべての未解決を全てデータベースから取り出し、格納
-        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=?", session["user_id"]) # これ以降AND user_id=?の部分AND usernmae=?に変えてます
+        unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=?", session["user_id"])
 
-        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum, unsolved_sum=unsolved_sum)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -212,7 +219,7 @@ def display_unsolved():
             # 特定の言語の未解決をデータベースから取り出し、格納
             unsolved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'unsolved' AND username=? AND language=?", session["user_id"], language)
 
-        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES)
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum, unsolved_sum=unsolved_sum)
 
 
 #解決済みのエラーを表示
@@ -220,15 +227,22 @@ def display_unsolved():
 @login_required
 def display_solved():
 
+<<<<<<< HEAD
     # 後で消す
     # session["user_id"] = name
+=======
+    # エラーの合計数
+    errors_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=?", session["user_id"])
+    # 解決済エラーの合計
+    solved_sum = db.execute("COUNT(errors_id) FROM errors WHERE username=? AND solved LIKE 'solved'", session["user_id"])
+>>>>>>> 589b92abf97a0f1e480192c6f3d4b7b3c58fa4be
 
     if request.method == "GET":
 
         # 解決済みを全てデータベースから取り出し、格納
         solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND username=?", session["user_id"])
 
-        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum, solved_sum=solved_sum)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -241,7 +255,7 @@ def display_solved():
             # 特定の言語の未解決エラーをデータベースから取り出し、格納
             solved_errors = db.execute("SELECT * FROM errors WHERE solved LIKE 'solved' AND username=? AND language=?", session["user_id"], language)
 
-        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES)
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum, solved_sum=solved_sum)
 #####イシモリ
 
 
