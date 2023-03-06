@@ -133,12 +133,12 @@ def register():
 # 記録処理
 # 中井が担当
 @app.route("/record", methods=["GET", "POST"])
-# @login_required
+@login_required
 def record():
 
     if request.method == "POST":
 
-        # エラー言語（選ぶ）formじゃないかも? formであってます。
+        # エラー言語（選ぶ）
         language = request.form.get("language")
 
         # 追加言語
@@ -150,10 +150,13 @@ def record():
         # 状況説明
         explanation = request.form.get("explanation")
         # 解決策
-        solution = request.form.get("solution")                            #解決･未解決をデータベースに追加してください
+        solution = request.form.get("solution")
+
+        #解決･未解決をデータベースに追加してください
+        public = request.form.get("status")
 
         # ユーザーと結びつける
-        username = db.execute("SELECT name FROM users WHERE name = ?" ,session["user_id"])
+        username = session["user_id"]
 
         # apology 作らないといけない,helpers.pyみたいなの
         # if not language:
@@ -167,18 +170,17 @@ def record():
         #     return apology("Please explain the situation", 400)
 
         # 未解決の場合（ボタンが押されたらにした方がいい？）
-        if not solution:
-            flash("記録しました！頑張ったね！")
-            public = False
-            db.execute("INSERT INTO errors (username, language, message, explain, public) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, public)
-            return render_template("unsolved.html")
+        # if not solution:
+        #     flash("記録しました！頑張ったね！")
+        #     public = 未解決
+        #     db.execute("INSERT INTO errors (username, language, message, explain, public) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, public)
+        #     return render_template("unsolved.html")
 
         # 解決できた場合
-        else:
-            flash("記録しました！解決できてすごい！")
-            public = True
-            db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
-            return render_template("solved.html")
+        # else:
+        flash("記録しました！解決できてすごい！")
+        db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
+        return render_template("solved.html")
 
     else:
         return render_template("record.html", language=LANGUAGES)
@@ -186,11 +188,11 @@ def record():
 #イシモリ #最終更新 2/26
 # 未解決を表示
 @app.route("/unsolved", methods=["GET", "POST"])
-# @login_required
+@login_required
 def display_unsolved():
 
     # 後で消す
-    session["user_id"] = 2
+    # session["user_id"] = name
 
     if request.method == "GET":
 
@@ -215,11 +217,11 @@ def display_unsolved():
 
 #解決済みのエラーを表示
 @app.route("/solved", methods=["GET", "POST"])
-# @login_required
+@login_required
 def display_solved():
 
     # 後で消す
-    session["user_id"] = 2
+    # session["user_id"] = name
 
     if request.method == "GET":
 
