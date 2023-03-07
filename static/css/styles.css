@@ -231,7 +231,15 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     details{
       width: 80vw;
     }
+
+  }
+
+.profile{
+  margin-right: 10px;
+  margin-left: 10px;
+}
     .login-box{
       width: 70vw;
     }
   }
+
