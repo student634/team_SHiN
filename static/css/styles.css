@@ -17,6 +17,12 @@ h2{
 
 .footer1{
   width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer2{
+  width: 100%;
 }
 
 .home{
@@ -225,9 +231,15 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     details{
       width: 80vw;
     }
+
   }
 
 .profile{
   margin-right: 10px;
   margin-left: 10px;
 }
+    .login-box{
+      width: 70vw;
+    }
+  }
+
