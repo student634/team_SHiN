@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <a href="/record" role="button" class = "home-button"><span>登録</span></a>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-brand">Profile</div>
@@ -37,11 +37,13 @@
         <button type="submit">絞る</button>
     </form>
     <hr>
+    <a href="/record" role="button" class = "home-button"><span>登録</span></a>
 
+<div class="contents">
     <h2>未解決エラー</h2>
     {% for solved_error in solved_errors %}
     <details>
-        <summary>{{ unsolved_error.message }}</summary>
+        <summary class="error">{{ unsolved_error.message }}</summary>
             <div>
                 <ul class="box-detail">
                     <li>投稿日時:{{ unsolved_error.before_day }}エラー解決日時:{{ unsolved_error.after_day }}</li>
@@ -51,6 +53,8 @@
             </div>
         </details>
     {% endfor %}
+</div>
+
     <footer><img src="./static/images/footer1.png" alt="icon" class = "footer1"></footer>
 
 {% endblock %}

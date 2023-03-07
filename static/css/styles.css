@@ -62,7 +62,7 @@ h2{
 	text-decoration: none;
 	height: 4rem;
 	width: 190px;
-	margin: 35px 30px 30px 30px;
+	margin: 30px auto;
 	padding:10px;
 	border-radius: 3%;
 	background: #aa9fa0;
@@ -132,7 +132,13 @@ h2{
   background-size: cover;
 }
 
+.contents{
+  min-height: 500px;
+}
 
+.error{
+  color: #333;
+}
 
 details { /* 折りたたみボックス全体 */
   width: 800px;
