@@ -213,6 +213,11 @@ details > summary { /* 折りたたみボックスの本のタイトル */
   opacity: 0;
   }
 
+  .profile{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
   @keyframes fadeUpAnime{
     from {
       opacity: 0;
@@ -235,3 +240,4 @@ details > summary { /* 折りたたみボックスの本のタイトル */
       width: 70vw;
     }
   }
+
