@@ -17,6 +17,12 @@ h2{
 
 .footer1{
   width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer2{
+  width: 100%;
 }
 
 .home{
@@ -224,5 +230,8 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     /* 横幅が320px以下の場合に適用するスタイル */
     details{
       width: 80vw;
+    }
+    .login-box{
+      width: 70vw;
     }
   }
