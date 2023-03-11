@@ -3,13 +3,6 @@ body{
   color: #333333;
 }
 
-/* デザイン画像ができるまでの一時的フッター */
-/* footer{
-  background-color: #aa9fa0;
-  height: 40px;
-  margin-top:160px;
-} */
-
 h2{
   text-align:center;
   margin:40px;
@@ -142,30 +135,40 @@ h2{
   min-height: 500px;
 }
 
-.error{
-  color: #333;
-}
 
 details { /* 折りたたみボックス全体 */
   width: 800px;
   box-shadow: 4px 4px 5px #47454559;
-  margin: auto;
+  margin: 30px auto;
+  border-radius: 5px;
 }
 
-details > summary { /* 折りたたみボックスの本のタイトル */
+details > summary { /* 折りたたみボックスのerror */
   padding: 6px;
-  color: #f0eeee;
   width: auto;
-  height: 50px;
+  height: auto;
   justify-content: center;
   font-size: 20px;
   border-radius: 5px;
-  background-image: url(../images/photo2.jpg);
   border: none;
   cursor: pointer;
   list-style: none;
 
 }
+
+
+.error{
+  background-color:rgb(139 135, 132);
+  color: #fff;
+}
+
+.wrap{
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-around;
+  background-color:#aa9fa0;
+}
+
 
 .box-detail{
   list-style: none;

@@ -41,25 +41,28 @@
 
 <div class="contents">
     <h2>解決済みエラー</h2>
+
     {% for solved_error in solved_errors %}
     <details>
-    <summary class="error">{{ solved_error.message }}</summary>
+    <summary class="error">
+        {{ solved_error.message }}
+    </summary>
         <div>
-            <form action="/edit" method="POST">
-                <a href="/edit" type="submit" class = "home-button" name="edit" value="{{ solved_error.error_id }}"><span>編集</span></a>
-            </form>
             <ul class="box-detail" >
-                <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
+                <li>投稿日時:{{ solved_error.before_day }}</li>
+                <li>解決日時:{{ solved_error.after_day }}</li>
                 <li>{{ solved_error.language }}</li>
                 <li>{{ solved_error.explain }}</li>
                 <li>{{ solved_error.solved }}</li>
             </ul>
         </div>
+        <div class="wrap">
+            <a href="/edit" role="button">編集</a>
+        </div>
     </details>
     {% endfor %}
 </div>
-
-    <footer><img src="./static/images/footer1.png" alt="icon" class = "footer2"></footer>
+    {{ footer | safe }}
 {% endblock %}
 
 <!--

@@ -2,7 +2,7 @@ import os
 
 # 必要そうなライブラリを取りあえずコピペ（後々増えたり減ったりするはず）
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, Markup
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -199,13 +199,29 @@ def display_unsolved():
     unsolved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '未解決'", session["user_id"])
     unsolved_sum = unsolved_sum[0]['COUNT(error_id)']
 
+    # 解決済エラーの合計
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
+    solved_sum = solved_sum[0]['COUNT(error_id)']
+
+    #解決数に応じてフッターを変更 + エラーのバックカラーを変更
+    if solved_sum < 1:
+        footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 2:
+        footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 3:
+        footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 4:
+        footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+    else:
+        footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+
     if request.method == "GET":
 
         # すべての未解決を全てデータベースから取り出し、格納
         unsolved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '未解決' AND username=?", session["user_id"])
 
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
+                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -220,7 +236,7 @@ def display_unsolved():
                                           session["user_id"], language)
 
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
+                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer)
 
 
 #解決済のエラーを表示
@@ -236,13 +252,25 @@ def display_solved():
     solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
+    #解決数に応じてフッターを変更
+    if solved_sum < 1:
+        footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 2:
+        footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 3:
+        footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+    elif solved_sum < 4:
+        footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+    else:
+        footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+
     if request.method == "GET":
 
         # 解決済みを全てデータベースから取り出し、格納
         solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND username=?", session["user_id"])
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                solved_sum=solved_sum, username=session["user_id"])
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -257,7 +285,7 @@ def display_solved():
                                         session["user_id"], language)
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                solved_sum=solved_sum, username=session["user_id"])
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer)
 #####イシモリ
 
 # 編集画面の表示
