@@ -17,6 +17,12 @@ h2{
 
 .footer1{
   width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer2{
+  width: 100%;
 }
 
 .home{
@@ -62,7 +68,7 @@ h2{
 	text-decoration: none;
 	height: 4rem;
 	width: 190px;
-	margin: 35px 30px 30px 30px;
+	margin: 30px auto;
 	padding:10px;
 	border-radius: 3%;
 	background: #aa9fa0;
@@ -132,7 +138,13 @@ h2{
   background-size: cover;
 }
 
+.contents{
+  min-height: 500px;
+}
 
+.error{
+  color: #333;
+}
 
 details { /* 折りたたみボックス全体 */
   width: 800px;
@@ -201,6 +213,11 @@ details > summary { /* 折りたたみボックスの本のタイトル */
   opacity: 0;
   }
 
+  .profile{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
   @keyframes fadeUpAnime{
     from {
       opacity: 0;
@@ -219,4 +236,8 @@ details > summary { /* 折りたたみボックスの本のタイトル */
     details{
       width: 80vw;
     }
+    .login-box{
+      width: 70vw;
+    }
   }
+

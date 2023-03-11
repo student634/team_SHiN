@@ -5,25 +5,26 @@
 {% endblock %}
 
 {% block body %}
-    <a href="/record" role="button" class = "home-button"><span>登録</span></a>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <div class="navbar-brand">Profile</div>
+            <div class="navbar-brand">プロフィール</div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item">name: I4mori </li>
-                    <li class="nav-item">errors_sum: 500 </li>             <!-- ここ修正 -->
-                    <li class="nav-item">solved_sum: 400 </li>
+                    <li class="nav-item profile">ユーザー: {{ username }} </li>
+                    <li class="nav-item profile">総エラー数: {{ errors_sum }} </li>
+                    <li class="nav-item profile">解決済み: {{ solved_sum }} </li>
+                    <li class="nav-item profile"><a href="/unsolved" role="button"><span>未解決</span></a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <hr>
-    <form action="/unsolved" method="POST">
+    <form action="/solved" method="POST">
         <div>
             <select name="language">
                     <option disabled selected>言語を選択してください</option>
@@ -36,22 +37,29 @@
         <button type="submit">絞る</button>
     </form>
     <hr>
+    <a href="/record" role="button" class = "home-button"><span>登録</span></a>
 
+<div class="contents">
     <h2>解決済みエラー</h2>
     {% for solved_error in solved_errors %}
     <details>
-    <summary>{{ solved_error.message }}</summary>
+    <summary class="error">{{ solved_error.message }}</summary>
         <div>
-            <ul class="box-detail">
+            <form action="/edit" method="POST">
+                <a href="/edit" type="submit" class = "home-button" name="edit" value="{{ solved_error.error_id }}"><span>編集</span></a>
+            </form>
+            <ul class="box-detail" >
                 <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
                 <li>{{ solved_error.language }}</li>
                 <li>{{ solved_error.explain }}</li>
+                <li>{{ solved_error.solved }}</li>
             </ul>
         </div>
     </details>
     {% endfor %}
+</div>
 
-    <footer><img src="./static/images/footer1.png" alt="icon" class = "footer1"></footer>
+    <footer><img src="./static/images/footer1.png" alt="icon" class = "footer2"></footer>
 {% endblock %}
 
 <!--
