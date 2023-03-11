@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Record
+{% endblock %}
+
+{% block body %}
+<h2>登録画面</h2>
+<form action="/record" method="post">
+<div class="mb-3 form-box">
+        <!-- autofocusいるかな？ -->
+        <!-- inputいらないのでは？？ -->
+        <!-- <input autocoplete="off" autofocus name="language" placeholder="学習した言語を選んでください" type="text"> -->
+    <div class="mb-3">
+        <label for="title" class="form-label">使用言語を選択してください</label>
+        <select  class="form-select" aria-label="language" name="language">
+            <option disable selected>言語</option>
+            {% for lan in language %}
+            <option>{{ lan }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="error" class="form-label">エラー文</label>
+        <textarea class="form-control" placeholder="エラー文をコピペしてください" id="error" style="height: 100px" name="error" required>
+            {{ edit_errors }}
+        </textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="explanation" class="form-label">状況説明</label>
+        <textarea class="form-control" placeholder="｢何を実行しようとして｣｢どのような結果が出たのか｣" id="explanation" style="height: 100px" name="explanation">
+        {{ edit_errors }}
+        </textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="solution">解決策</label>
+        <textarea class="form-control" placeholder="例:〇〇が原因だったので、〇〇を〇〇に変更した" id="solution" style="height: 150px" name="solution">
+            {{ edit_errors }}
+        </textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="status">現在の状況</label>
+        <input type="radio" name="status" id="statusChoice1" value="解決" checked>解決
+        <input type="radio" name="status" id="statusChoice2" value="未解決">未解決
+    </div>
+    <button type="submit" class="button2">編集</button>
+</div>
+</form>
+{% endblock %}
+
+
+
+        <!-- <p>学習した言語が見つかりませんか？</p>
+        <input autocomplete="off" name="add" placeholder="追加したい言語を入力してください" type="text"> -->
+
+        <!-- <h3></h3>
+        <input autocomplete="off" name="error" placeholder="エラーをターミナルからコピーして入力してください" type="textarea" required>
+        <p></p>
+        <input autocomplete="off" name="" placeholder="説明文を入力してください" type="text" required>
+        <p></p>
+        <input autocomplete="off" name="solution" placeholder="解決策を入力してください" type="text"> -->
+
+
+
+
+

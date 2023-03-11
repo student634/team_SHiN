@@ -260,6 +260,18 @@ def display_solved():
                                 solved_sum=solved_sum, username=session["user_id"])
 #####イシモリ
 
+# 編集画面の表示
+@app.route("/edit", methods=["GET", "POST"])
+@login_required
+def edit():
+    if request.method == "POST":
+        error_id = request.form.get("edit")
+        edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
+        return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors)
+    else:
+        return render_template("edit.html", language=LANGUAGES)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
