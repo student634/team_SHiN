@@ -333,24 +333,24 @@ def edit(error_id):
 
 # 共有画面の表示
 @app.route("/timeline", methods=["GET", "POST"])
-@login.required
+@login_required
 def timeline():
 
     # 検索したい場合
     if request.method == "POST":
 
         # どの言語で絞るか form から受け取る
-        search = request.form.get("language")
+        language = request.form.get("language")
 
-        # if language == "すべての言語":
-        #     # すべての解決済みをデータベースから取り出し、格納
-        #     solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決'")
+        if language == "すべての言語":
+            # すべての解決済みをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決'")
 
-        # else:
-        #     # 特定の言語の解決済エラーをデータベースから取り出し、格納
-        #     solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
+        else:
+            # 特定の言語の解決済エラーをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
 
-        # return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES)
+        return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES)
 
     # 解決済みを並べる
     else:
@@ -358,9 +358,6 @@ def timeline():
         # 名前はsolved_errorsでよい？
         solved_errors = db.execute("SELECT * FROM errors ORDER BY after_day DESC")
         return render_template("timeline.html", solved_errors=solved_errors)
-
-
-
 
 
 if __name__ == "__main__":
