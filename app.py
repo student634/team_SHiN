@@ -184,21 +184,31 @@ def display_unsolved():
 
     if solved_sum < 2:
         footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 3:
         footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 4:
         footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 5:
         footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right"></a>')
     else:
         footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right"></a>')
 
     if request.method == "GET":
 
         # すべての未解決を全てデータベースから取り出し、格納
         unsolved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '未解決' AND username=?", session["user_id"])
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer)
+                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -214,7 +224,7 @@ def display_unsolved():
 
 
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer)
+                                unsolved_sum=unsolved_sum, solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
 
 #解決済のエラーを表示
@@ -233,14 +243,24 @@ def display_solved():
     #解決数に応じてフッターを変更
     if solved_sum < 2:
         footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 3:
         footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 4:
         footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right"></a>')
     elif solved_sum < 5:
         footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right"></a>')
     else:
         footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right"></a>')
 
     if request.method == "GET":
 
@@ -249,7 +269,7 @@ def display_solved():
 
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                solved_sum=solved_sum, username=session["user_id"], footer=footer)
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -265,7 +285,7 @@ def display_solved():
 
 
         return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                solved_sum=solved_sum, username=session["user_id"], footer=footer)
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 #####イシモリ
 
 # 編集画面の表示
