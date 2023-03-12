@@ -204,16 +204,8 @@ def display_unsolved():
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
     #解決数に応じてフッターを変更 + エラーのバックカラーを変更
-    if solved_sum < 1:
-        footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
-    elif solved_sum < 2:
-        footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
-    elif solved_sum < 3:
-        footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
-    elif solved_sum < 4:
-        footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
-    else:
-        footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+
+
 
     if request.method == "GET":
 
