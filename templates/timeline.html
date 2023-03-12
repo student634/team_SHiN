@@ -26,15 +26,9 @@
     <hr>
     <form action="/solved" method="POST">
         <div>
-            <select name="language">
-                    <option disabled selected>言語を選択してください</option>
-                    <option>すべての言語</option>
-                {% for language in languages %}
-                    <option>{{ language }}</option>
-                {% endfor %}
-            </select>
+            <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search" name="search">
+            <button class="btn btn-outline-success color-white" type="submit">Search</button>
         </div>
-        <button type="submit">絞る</button>
     </form>
     <hr>
     <a href="/record" role="button" class = "home-button"><span>登録</span></a>
