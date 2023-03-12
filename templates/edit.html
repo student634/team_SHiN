@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Record
+    編集
 {% endblock %}
 
 {% block body %}
@@ -23,21 +23,21 @@
     <div class="mb-3">
         <label for="error" class="form-label">エラー文</label>
         <textarea class="form-control" placeholder="エラー文をコピペしてください" id="error" style="height: 100px" name="error" required>
-            {{ edit_errors }}
+            {{ edit_errors.message }}
         </textarea>
     </div>
 
     <div class="mb-3">
         <label for="explanation" class="form-label">状況説明</label>
         <textarea class="form-control" placeholder="｢何を実行しようとして｣｢どのような結果が出たのか｣" id="explanation" style="height: 100px" name="explanation">
-        {{ edit_errors }}
+            {{ edit_errors.explain }}
         </textarea>
     </div>
 
     <div class="mb-3">
         <label for="solution">解決策</label>
         <textarea class="form-control" placeholder="例:〇〇が原因だったので、〇〇を〇〇に変更した" id="solution" style="height: 150px" name="solution">
-            {{ edit_errors }}
+            {{ edit_errors.solved }}
         </textarea>
     </div>
 

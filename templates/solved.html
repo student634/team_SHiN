@@ -45,9 +45,9 @@
     <details>
     <summary class="error">{{ solved_error.message }}</summary>
         <div>
-            <form action="/edit" method="POST">
-                <a href="/edit" type="submit" class = "home-button" name="edit" value="{{ solved_error.error_id }}"><span>編集</span></a>
-            </form>
+
+            <a href="/edit/{{ solved_error.error_id }}" type="submit" class = "home-button" name="edit"><span>編集</span></a>
+
             <ul class="box-detail" >
                 <li>投稿日時:{{ solved_error.before_day }}エラー解決日時:{{ solved_error.after_day }}</li>
                 <li>{{ solved_error.language }}</li>
