@@ -8,15 +8,10 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 
-app = Flask(__name__)
+# helpers.py を インポート
+from helpers import apology, login_required
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if session.get("user_id") is None:
-            return redirect("/login")
-        return f(*args, **kwargs)
-    return decorated_function
+app = Flask(__name__)
 
 # session用にキーを設定
 app.secret_key = 'dugfvbqeako'
@@ -52,6 +47,9 @@ db = SQL("sqlite:///sns.db")
 # 起動時、必ずHomeが表示されるように
 @app.route("/")
 def home():
+    # 前の人のログイン情報をクリア
+    session.clear()
+
     # ただHome画面を表示するだけ
     return render_template('home.html')
 
