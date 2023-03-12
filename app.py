@@ -270,15 +270,17 @@ def display_solved():
 #####イシモリ
 
 # 編集画面の表示
-@app.route("/edit/<int:error_id>", methods=["GET", "POST"])
+@app.route("/edit/<path:error_id>", methods=["GET", "POST"])
 @login_required
 def edit(error_id):
-    # if request.method == "POST":
-        # edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
-        # return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors)
+    #if request.method == "POST":
+        # error_id = request.form.get("edit")
+        edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
+        return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors[0])
     # else:
-        edit = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
-        return render_template("edit.html", edit=edit, language=LANGUAGES)
+    #     return render_template("edit.html", language=LANGUAGES)
+
+
 
 
 
