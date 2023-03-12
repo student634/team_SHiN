@@ -26,9 +26,15 @@
     <hr>
     <form action="/solved" method="POST">
         <div>
-            <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search" name="search">
-            <button class="btn btn-outline-success color-white" type="submit">Search</button>
+            <select name="language">
+                    <option disabled selected>言語を選択してください</option>
+                    <option>すべての言語</option>
+                {% for language in languages %}
+                    <option>{{ language }}</option>
+                {% endfor %}
+            </select>
         </div>
+        <button type="submit">絞る</button>
     </form>
     <hr>
     <a href="/record" role="button" class = "home-button"><span>登録</span></a>
@@ -38,13 +44,10 @@
 
     {% for solved_error in solved_errors %}
     <details>
-    <summary class="error">
+    <summary class="error_level3">
         {{ solved_error.message }}
     </summary>
         <div>
-
-            <a href="/edit/{{ solved_error.error_id }}" type="submit" class = "home-button" name="edit"><span>編集</span></a>
-
             <ul class="box-detail" >
                 <li>投稿日時:{{ solved_error.before_day }}</li>
                 <li>解決日時:{{ solved_error.after_day }}</li>
@@ -59,7 +62,7 @@
     </details>
     {% endfor %}
 </div>
-    {{ footer | safe }}
+<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>
 {% endblock %}
 
 <!--
