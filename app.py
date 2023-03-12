@@ -142,8 +142,8 @@ def record():
         language = request.form.get("language")
 
         # 追加言語
-        # add = request.form.get("add")
-        # LANGUAGES.append(add)
+        add = request.form.get("add")
+        LANGUAGES.append(add)
 
         # エラー
         error = request.form.get("error")
@@ -158,26 +158,7 @@ def record():
         # ユーザーと結びつける
         username = session["user_id"]
 
-        # apology 作らないといけない,helpers.pyみたいなの
-        # if not language:
-        #     return apology("missing language", 400)
-
-
-        # if not error:
-        #     return apology("please enter an error", 400)
-
-        # if not explanation:
-        #     return apology("Please explain the situation", 400)
-
-        # 未解決の場合（ボタンが押されたらにした方がいい？）
-        # if not solution:
-        #     flash("記録しました！頑張ったね！")
-        #     public = 未解決
-        #     db.execute("INSERT INTO errors (username, language, message, explain, public) VALUES(?, ?, ?, ?, ?)", username, language, error, explanation, public)
-        #     return render_template("unsolved.html")
-
         # 解決できた場合
-        # else:
         flash("記録しました！解決できてすごい！")
         db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
         return render_template("solved.html")
