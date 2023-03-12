@@ -281,6 +281,35 @@ def edit(error_id):
     #     return render_template("edit.html", language=LANGUAGES)
 
 
+# 共有画面の表示
+@app.route("/share", methods=["GET", "POST"])
+@login.required
+def share():
+
+    if request.method == "POST":
+
+        else:
+        # どの言語で絞るか form から受け取る
+        language = request.form.get("language")
+
+            if language == "すべての言語":
+            # すべての解決済みをデータベースから取り出し、格納
+                solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決')
+
+            else:
+            # 特定の言語の解決済エラーをデータベースから取り出し、格納
+                solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer)
+
+    else:
+        # 解決済みのデータを日付順に並べて格納
+        # 名前はsolved_errorsでよい？
+        solved_errors = db.execute("SELECT * FROM errors ORDER BY after_day DESC)
+        return render_template("solved.html", solved_errors=solved_errors)
+
+
 
 
 
