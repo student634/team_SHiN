@@ -309,10 +309,9 @@ def display_solved():
 @app.route("/edit/<path:error_id>", methods=["GET", "POST"])
 @login_required
 def edit(error_id):
+    # record内容を変更する場合
     if request.method == "POST":
 
-        # エラー言語
-        # language = request.form.get("language")
         # エラー文
         error = request.form.get("error")
         # 状況説明
@@ -322,10 +321,13 @@ def edit(error_id):
         #解決か未解決か
         public = request.form.get("status")
 
+        # エラー文、状況説明、解決策、解決or未解決の内容を更新し、更新日時を変更
         db.execute("UPDATE errors SET message = ?, explain = ?, solved = ?, public = ?, after_day = DATETIME('now','localtime') WHERE error_id = ?", error, explanation, solution, public, error_id)
         return render_template("solved.html")
 
+    # 編集画面に飛ぶ場合
     else :
+        # solved.htmlの52行目からerror_idを取得し、該当するデータベースの内容を抜き出す
         edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
         return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors[0])
 
