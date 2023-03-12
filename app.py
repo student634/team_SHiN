@@ -292,12 +292,26 @@ def display_solved():
 @app.route("/edit/<path:error_id>", methods=["GET", "POST"])
 @login_required
 def edit(error_id):
-    #if request.method == "POST":
-        # error_id = request.form.get("edit")
+    if request.method == "POST":
+
+        # エラー言語
+        # language = request.form.get("language")
+        # エラー文
+        error = request.form.get("error")
+        # 状況説明
+        explanation = request.form.get("explanation")
+        # 解決策
+        solution = request.form.get("solution")
+        #解決か未解決か
+        public = request.form.get("status")
+
+        db.execute("UPDATE errors SET message = ?, explain = ?, solved = ?, public = ?, after_day = DATETIME('now','localtime') WHERE error_id = ?", error, explanation, solution, public, error_id)
+        return render_template("solved.html")
+
+    else :
         edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
         return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors[0])
-    # else:
-    #     return render_template("edit.html", language=LANGUAGES)
+
 
 
 
