@@ -14,8 +14,9 @@ h2{
   bottom: 0;
 }
 
-.footer2{
+.footer2{ /* solvedとunsolvedのヘッダー */
   width: 100%;
+  bottom: 0;
 }
 
 .home{
@@ -182,7 +183,6 @@ details > summary { /* 折りたたみボックスのerror */
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: space-around;
-  background-color:#aa9fa0;
 }
 
 

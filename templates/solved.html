@@ -44,13 +44,19 @@
 
     {% for solved_error in solved_errors %}
     <details>
-    <summary class="error">
-        {{ solved_error.message }}
-    </summary>
+        {% if solved_sum < 2 %}
+        <summary class="error_level1">{{ solved_error.message }}</summary>
+        {% elif solved_sum < 3 %}
+        <summary class="error_level2">{{ solved_error.message }}</summary>
+        {% elif solved_sum < 4 %}
+        <summary class="error_level3">{{ solved_error.message }}</summary>
+        {% elif solved_sum < 5 %}
+        <summary class="error_level4">{{ solved_error.message }}</summary>
+        {% else %}
+        <summary class="error_level5">{{ solved_error.message }}</summary>
+        {% endif %}
+
         <div>
-
-            <a href="/edit/{{ solved_error.error_id }}" type="submit" class = "home-button" name="edit"><span>編集</span></a>
-
             <ul class="box-detail" >
                 <li>投稿日時:{{ solved_error.before_day }}</li>
                 <li>解決日時:{{ solved_error.after_day }}</li>
@@ -59,13 +65,33 @@
                 <li>{{ solved_error.solved }}</li>
             </ul>
         </div>
-        <div class="wrap">
-            <a href="/edit" role="button">編集</a>
+
+        {% if solved_sum < 2 %}
+        <div class="wrap error">
+            <a href="/edit/{{ solved_error.error_id }}" role="button">編集</a>
         </div>
+        {% elif solved_sum < 3 %}
+        <div class="wrap error_level2">
+            <a href="/edit/{{ solved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% elif solved_sum < 4 %}
+        <div class="wrap error_level3">
+            <a href="/edit/{{ solved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% elif solved_sum < 5 %}
+        <div class="wrap error_level4">
+            <a href="/edit/{{ solved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% else %}
+        <div class="wrap error_level5">
+            <a href="/edit/{{ solved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% endif %}
+
     </details>
     {% endfor %}
 </div>
-<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>
+{{ footer | safe }}
 {% endblock %}
 
 <!--

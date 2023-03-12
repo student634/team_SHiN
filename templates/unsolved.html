@@ -44,23 +44,52 @@
     <h2>未解決エラー</h2>
     {% for solved_error in solved_errors %}
     <details>
-        <summary class="error">{{ unsolved_error.message }}</summary>
-            <div>
-                <ul class="box-detail">
-                    <li>投稿日時:{{ unsolved_error.before_day }}</li>
-                    <li>{{ unsolved_error.language }}</li>
-                    <li>{{ unsolved_error.explain }}</li>
-                </ul>
-            </div>
-            <div class="wrap">
-                <a href="/edit" role="button">編集</a>
-            </div>
-        </details>
+        {% if solved_sum < 2 %}
+        <summary class="error_level1">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 3 %}
+        <summary class="error_level2">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 4 %}
+        <summary class="error_level3">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 5 %}
+        <summary class="error_level4">{{ unsolved_error.message }}</summary>
+        {% else %}
+        <summary class="error_level5">{{ unsolved_error.message }}</summary>
+        {% endif %}
+        <div>
+            <ul class="box-detail">
+                <li>投稿日時:{{ unsolved_error.before_day }}</li>
+                <li>{{ unsolved_error.language }}</li>
+                <li>{{ unsolved_error.explain }}</li>
+            </ul>
+        </div>
+
+        {% if solved_sum < 2 %}
+        <div class="wrap error">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% elif solved_sum < 3 %}
+        <div class="wrap error_level2">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% elif solved_sum < 4 %}
+        <div class="wrap error_level3">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% elif solved_sum < 5 %}
+        <div class="wrap error_level4">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% else %}
+        <div class="wrap error_level5">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+        </div>
+        {% endif %}
+
+    </details>
     {% endfor %}
 </div>
 
-<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>
-
+{{ footer | safe }}
 {% endblock %}
 
 <!--
