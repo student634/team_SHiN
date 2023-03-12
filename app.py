@@ -305,12 +305,12 @@ def timeline():
         language = request.form.get("language")
 
         if language == "すべての言語":
-                # すべての解決済みをデータベースから取り出し、格納
-                solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決'")
+            # すべての解決済みをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決'")
 
         else:
-                # 特定の言語の解決済エラーをデータベースから取り出し、格納
-                solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
+            # 特定の言語の解決済エラーをデータベースから取り出し、格納
+            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
 
         return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES)
 
