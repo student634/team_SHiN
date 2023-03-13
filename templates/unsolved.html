@@ -8,59 +8,112 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <div class="navbar-brand">プロフィール</div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <div class="navbar-brand">ユーザー: {{ username }}</div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item profile">ユーザー: {{ username }} </li>
                     <li class="nav-item profile">総エラー数: {{ errors_sum }} </li>
                     <li class="nav-item profile">解決済み: {{ solved_sum }} </li>
-                    <li class="nav-item profile"><a href="/solved" role="button"><span>解決</span></a></li>
+                    <li><a href="/timeline" role="button">共有エラー</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
     <hr>
     <form action="/unsolved" method="POST">
-        <div>
-            <select name="language">
-                    <option disabled selected>言語を選択してください</option>
-                    <option>すべての言語</option>
-                {% for language in languages %}
-                    <option>{{ language }}</option>
-                {% endfor %}
-            </select>
+        <div class="back_black wrap2">
+            <div class="wrap3">
+                <select name="language" class="select_box">
+                        <option disabled selected>言語を選択してください▼</option>
+                        <option>すべての言語</option>
+                    {% for language in languages %}
+                        <option>{{ language }}</option>
+                    {% endfor %}
+                </select>
+                <button class="search_button" type="submit">絞る</button>
+            </div>
+
+            <div class="wrap3">
+                <input class="form-control me-2 search_box" type="search" placeholder="検索" aria-label="Search" name="search">
+                <button class="search_button" type="submit">Search</button>
+            </div>
+
         </div>
-        <button type="submit">絞る</button>
     </form>
     <hr>
-    <a href="/record" role="button" class = "home-button"><span>登録</span></a>
 
 <div class="contents">
     <h2>未解決エラー</h2>
-    {% for solved_error in solved_errors %}
+    {% for unsolved_error in unsolved_errors %}
     <details>
-        <summary class="error">{{ unsolved_error.message }}</summary>
-            <div>
-                <ul class="box-detail">
-                    <li>投稿日時:{{ unsolved_error.before_day }}</li>
-                    <li>{{ unsolved_error.language }}</li>
-                    <li>{{ unsolved_error.explain }}</li>
-                </ul>
-            </div>
-            <div class="wrap">
-                <a href="/edit" role="button">編集</a>
-            </div>
-        </details>
+        {% if solved_sum < 2 %}
+        <summary class="error_level1">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 3 %}
+        <summary class="error_level2">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 4 %}
+        <summary class="error_level3">{{ unsolved_error.message }}</summary>
+        {% elif solved_sum < 5 %}
+        <summary class="error_level4">{{ unsolved_error.message }}</summary>
+        {% else %}
+        <summary class="error_level5">{{ unsolved_error.message }}</summary>
+        {% endif %}
+
+        <div>
+            <dl class="box-detail">
+                <dt>投稿日時:</dt>
+                <dd>{{ unsolved_error.before_day }}</dd>
+
+                <dt>解決日時:</dt>
+                <dd>{{ unsolved_error.after_day }}</dd>
+
+                <dt>言語</dt>
+                <dd>{{ unsolved_error.language }}</dd>
+
+                <dt>状況</dt>
+                <dd>{{ unsolved_error.explain }}</dd>
+
+                <dt>解決策</dt>
+                <dd><a href="/search/{{ unsolved_error.error_id }}" role="button">ヒントを探しに行く</a></dd>
+                <dd>{{ unsolved_error.solved }}</dd>
+            </dl>
+        </div>
+
+        {% if solved_sum < 2 %}
+        <div class="wrap error">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
+        </div>
+        {% elif solved_sum < 3 %}
+        <div class="wrap error_level2">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
+        </div>
+        {% elif solved_sum < 4 %}
+        <div class="wrap error_level3">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
+        </div>
+        {% elif solved_sum < 5 %}
+        <div class="wrap error_level4">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
+        </div>
+        {% else %}
+        <div class="wrap error_level5">
+            <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
+        </div>
+        {% endif %}
+
+    </details>
     {% endfor %}
 </div>
-
-<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>
-
+{{ move | safe }}
+{{ icon | safe }}
+{{ footer | safe }}
 {% endblock %}
 
 <!--

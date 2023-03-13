@@ -14,8 +14,9 @@ h2{
   bottom: 0;
 }
 
-.footer2{
+.footer2{ /* solvedとunsolvedのヘッダー */
   width: 100%;
+  bottom: 0;
 }
 
 .home{
@@ -130,6 +131,26 @@ h2{
   height:70px;
   background-size: cover;
 }
+.level_icon{
+  height:95px;
+  position:fixed;
+  right:50px;
+  bottom:50px;
+}
+.level_move_right{
+  height:150px;
+  position:fixed;
+  right:10px;
+  bottom:300px;
+}
+
+
+.search_box{
+  width:400px;
+}
+.search_button{
+  margin:10px;
+}
 
 .contents{
   min-height: 500px;
@@ -138,7 +159,7 @@ h2{
 
 details { /* 折りたたみボックス全体 */
   width: 800px;
-  box-shadow: 4px 4px 5px #47454559;
+  box-shadow: 4px 4px 5px rgb(100,90,90);
   margin: 30px auto;
   border-radius: 5px;
 }
@@ -158,38 +179,65 @@ details > summary { /* 折りたたみボックスのerror */
 
 /* 解決数によってerrorの色を変更 */
 .error{
-  background-color:rgb(139 135, 132);
-  color: #fff;
+  background-color: #aa9fa0;
+  color: #333;
 }
 .error_level2{
-  background-color: #64c0ab;
+  background-color:rgb(187, 219, 180);
   color: #333;
 }
 .error_level3{
-  background-color: #bbc4e4;
+  background-color:rgb(182, 206, 220);
   color: #333;
 }
 .error_level4{
-  background-color: #fdeff5;
+  background-color:rgb(233, 189, 190);
   color: #333;
 }
 .error_level5{
-  background-color: #d2ccdf;
+  background-color:rgb(50, 51, 56);
+  color: #fff;
+}
+.error_timeline{
+  background-color:rgb(224, 222, 186);
   color: #333;
+}
+
+.back_black{
+  background-color:rgb(230, 230, 230);
+  padding:10px;
 }
 
 .wrap{
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: space-around;
-  background-color:#aa9fa0;
 }
-
+.wrap2{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.wrap3{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.select_box{
+  border: solid;
+  padding:5px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+}
 
 .box-detail{
   list-style: none;
   padding: 30px;
+  margin-bottom: 0px;
   background-color: #ffffff;
+}
+dd{
+  margin-left: 10px;
 }
 
 .form-box{
