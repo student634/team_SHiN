@@ -351,6 +351,14 @@ def timeline():
         solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
         return render_template("timeline.html", solved_errors=solved_errors)
 
+# 未解決からそのまま共有画面に
+@app.route("/search/<path:error_id>", methods=["GET", "POST"])
+@login_required
+def timeline(error_id):
+
+    solved_errors= db.execute("SELECT * FROM errors WHERE error_id = ? AND public = '解決' ORDER BY after_day DESC", error_id)
+    return render_template("search.html", solved_errors=solved_errors)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
