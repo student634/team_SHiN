@@ -159,7 +159,7 @@ def record():
         # 解決できた場合
         flash("記録しました！解決できてすごい！")
         db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
-        return render_template("solved.html")
+        return redirect("/solved")
 
     else:
         return render_template("record.html", language=LANGUAGES)
@@ -208,7 +208,7 @@ def display_unsolved():
         # すべての未解決を全てデータベースから取り出し、格納
         unsolved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '未解決' AND username=?", session["user_id"])
         return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
+                                unsolved_sum=unsolved_sum, solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -314,6 +314,13 @@ def edit(error_id):
         edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
         return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors[0])
 
+# 削除ボタン
+@app.route("/delete/<path:error_id>")
+@login_required
+def delete(error_id):
+
+    db.execute("DELETE FROM errors WHERE error_id = ?", error_id)
+    return redirect("/solved")
 
 
 # 共有画面の表示
@@ -341,7 +348,7 @@ def timeline():
     else:
         # 解決済みのデータを日付順に並べて格納
         # 名前はsolved_errorsでよい？
-        solved_errors = db.execute("SELECT * FROM errors ORDER BY after_day DESC")
+        solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
         return render_template("timeline.html", solved_errors=solved_errors)
 
 

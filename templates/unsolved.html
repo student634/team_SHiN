@@ -46,7 +46,7 @@
 
 <div class="contents">
     <h2>未解決エラー</h2>
-    {% for solved_error in solved_errors %}
+    {% for unsolved_error in unsolved_errors %}
     <details>
         {% if solved_sum < 2 %}
         <summary class="error_level1">{{ unsolved_error.message }}</summary>
@@ -75,29 +75,35 @@
                 <dd>{{ unsolved_error.explain }}</dd>
 
                 <dt>解決策</dt>
-                <dd>{{ unsolved_error.solved }}</dd>
+                <dd><a href="/timeline" role="button">ヒントを探しに行く</a></dd>
+                <!-- <dd>{{ unsolved_error.solved }}</dd> -->
             </dl>
         </div>
 
         {% if solved_sum < 2 %}
         <div class="wrap error">
             <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
         </div>
         {% elif solved_sum < 3 %}
         <div class="wrap error_level2">
             <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
         </div>
         {% elif solved_sum < 4 %}
         <div class="wrap error_level3">
             <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
         </div>
         {% elif solved_sum < 5 %}
         <div class="wrap error_level4">
             <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
         </div>
         {% else %}
         <div class="wrap error_level5">
             <a href="/edit/{{ unsolved_error.error_id }}" role="button">編集</a>
+            <a href="/delete/{{ unsolved_error.error_id }}" role="button">削除</a>
         </div>
         {% endif %}
 
