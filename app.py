@@ -327,7 +327,13 @@ def delete(error_id):
 @app.route("/timeline", methods=["GET", "POST"])
 @login_required
 def timeline():
+    # エラーの合計数
+    errors_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=?", session["user_id"])
+    errors_sum = errors_sum[0]['COUNT(error_id)']
 
+    # 解決済エラーの合計
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
+    solved_sum = solved_sum[0]['COUNT(error_id)']
     # 検索したい場合
     if request.method == "POST":
 
@@ -342,22 +348,34 @@ def timeline():
             # 特定の言語の解決済エラーをデータベースから取り出し、格納
             solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
 
-        return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES)
+        return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES
+                               , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
     # 解決済みを並べる
     else:
         # 解決済みのデータを日付順に並べて格納
         # 名前はsolved_errorsでよい？
         solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
-        return render_template("timeline.html", solved_errors=solved_errors)
+        return render_template("timeline.html", solved_errors=solved_errors
+                               , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
 # 未解決からそのまま共有画面に
-@app.route("/search/<path:error_id>", methods=["GET", "POST"])
+@app.route("/search/<path:error_id>")
 @login_required
-def timeline(error_id):
+def search(error_id):
+        # エラーの合計数
+    errors_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=?", session["user_id"])
+    errors_sum = errors_sum[0]['COUNT(error_id)']
 
-    solved_errors= db.execute("SELECT * FROM errors WHERE error_id = ? AND public = '解決' ORDER BY after_day DESC", error_id)
-    return render_template("search.html", solved_errors=solved_errors)
+    # 解決済エラーの合計
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
+    solved_sum = solved_sum[0]['COUNT(error_id)']
+
+    error = db.execute("SELECT message FROM errors WHERE error_id = ?", error_id)
+    solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ?", error)
+
+    return render_template("search.html", solved_errors=solved_errors
+                           , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
 
 if __name__ == "__main__":
