@@ -159,7 +159,7 @@ def record():
         # 解決できた場合
         flash("記録しました！解決できてすごい！")
         db.execute("INSERT INTO errors (username, language, message, explain, solved, public) VALUES(?, ?, ?, ?, ?, ?)", username, language, error, explanation, solution, public)
-        return render_template("solved.html")
+        return redirect("/solved")
 
     else:
         return render_template("record.html", language=LANGUAGES)
@@ -182,29 +182,34 @@ def display_unsolved():
     solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
-
+    if solved_sum < 2:
+        footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 3:
+        footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 4:
+        footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 5:
+        footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right"></a>')
+    else:
+        footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/solved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right"></a>')
 
     if request.method == "GET":
 
         # すべての未解決を全てデータベースから取り出し、格納
         unsolved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '未解決' AND username=?", session["user_id"])
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
+                                unsolved_sum=unsolved_sum, solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
-        # 解決数に応じてフッターを変更 + エラーのバックカラーを変更
-        if solved_sum < 2:
-            return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 3:
-            return render_template("level2.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 4:
-            return render_template("level3.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 5:
-            return render_template("level4.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        else:
-            return render_template("level4.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
     else:
         # どの言語で絞るか form から受け取る
         language = request.form.get("language")
@@ -217,23 +222,9 @@ def display_unsolved():
             unsolved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '未解決' AND username=? AND language=?",
                                           session["user_id"], language)
 
-        if solved_sum < 2:
-            return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 3:
-            return render_template("level2.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 4:
-            return render_template("level3.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        elif solved_sum < 5:
-            return render_template("level4.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        else:
-            return render_template("level5.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                unsolved_sum=unsolved_sum, username=session["user_id"])
-        # return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-        #                         unsolved_sum=unsolved_sum, username=session["user_id"])
+
+        return render_template("unsolved.html", unsolved_errors=unsolved_errors, languages=LANGUAGES, errors_sum=errors_sum,
+                                unsolved_sum=unsolved_sum, solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
 
 #解決済のエラーを表示
@@ -250,29 +241,35 @@ def display_solved():
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
     #解決数に応じてフッターを変更
+    if solved_sum < 2:
+        footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 3:
+        footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 4:
+        footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right"></a>')
+    elif solved_sum < 5:
+        footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right"></a>')
+    else:
+        footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon"></a>')
+        move = Markup('<a href="/unsolved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right"></a>')
 
     if request.method == "GET":
 
         # 解決済みを全てデータベースから取り出し、格納
         solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND username=?", session["user_id"])
 
-        if solved_sum < 1:
-            return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 2:
-            return render_template("level2.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 3:
-            return render_template("level3.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 4:
-            return render_template("level4.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        else:
-            return render_template("level5.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        # return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-        #                         solved_sum=solved_sum, username=session["user_id"], footer=footer)
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 
     else:
         # どの言語で絞るか form から受け取る
@@ -286,23 +283,9 @@ def display_solved():
             solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND username=? AND language=?",
                                         session["user_id"], language)
 
-        if solved_sum < 1:
-            return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 2:
-            return render_template("level2.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 3:
-            return render_template("level3.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        elif solved_sum < 4:
-            return render_template("level4.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        else:
-            return render_template("level5.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-                                    solved_sum=solved_sum, username=session["user_id"])
-        # return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
-        #                         solved_sum=solved_sum, username=session["user_id"])
+
+        return render_template("solved.html", solved_errors=solved_errors, languages=LANGUAGES, errors_sum=errors_sum,
+                                solved_sum=solved_sum, username=session["user_id"], footer=footer, icon=icon, move=move)
 #####イシモリ
 
 # 編集画面の表示
@@ -331,35 +314,63 @@ def edit(error_id):
         edit_errors = db.execute("SELECT * FROM errors WHERE error_id = ?", error_id)
         return render_template("edit.html", language=LANGUAGES, edit_errors=edit_errors[0])
 
+# 削除ボタン
+@app.route("/delete/<path:error_id>")
+@login_required
+def delete(error_id):
+
+    db.execute("DELETE FROM errors WHERE error_id = ?", error_id)
+    return redirect("/solved")
 
 
 # 共有画面の表示
+# 中井
 @app.route("/timeline", methods=["GET", "POST"])
 @login_required
 def timeline():
+    # エラーの合計数
+    errors_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=?", session["user_id"])
+    errors_sum = errors_sum[0]['COUNT(error_id)']
 
+    # 解決済エラーの合計
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
+    solved_sum = solved_sum[0]['COUNT(error_id)']
     # 検索したい場合
+    # searchで値を受け取ってLIKEで絞る
     if request.method == "POST":
 
-        # どの言語で絞るか form から受け取る
-        language = request.form.get("language")
+        # searchで値を受け取る
+        search = request.form.get("search")
 
-        if language == "すべての言語":
-            # すべての解決済みをデータベースから取り出し、格納
-            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決'")
-
-        else:
-            # 特定の言語の解決済エラーをデータベースから取り出し、格納
-            solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' AND language=?", language)
-
-        return render_template("timeline.html", solved_errors=solved_errors, languages=LANGUAGES)
+        # 特定の単語を含む解決済みのエラーをデータベースから取り出し、格納
+        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", ('%'+search+'%',))
+        return render_template("timeline.html", solved_errors=solved_errors)
 
     # 解決済みを並べる
     else:
         # 解決済みのデータを日付順に並べて格納
         # 名前はsolved_errorsでよい？
-        solved_errors = db.execute("SELECT * FROM errors ORDER BY after_day DESC")
+        solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
         return render_template("timeline.html", solved_errors=solved_errors)
+
+
+# 未解決からそのまま共有画面に
+@app.route("/search/<path:error_id>")
+@login_required
+def search(error_id):
+        # エラーの合計数
+    errors_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=?", session["user_id"])
+    errors_sum = errors_sum[0]['COUNT(error_id)']
+
+    # 解決済エラーの合計
+    solved_sum = db.execute("SELECT COUNT(error_id) FROM errors WHERE username=? AND public LIKE '解決'", session["user_id"])
+    solved_sum = solved_sum[0]['COUNT(error_id)']
+
+    search = db.execute("SELECT message FROM errors WHERE error_id = ?", error_id)
+    solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", search)
+
+    return render_template("search.html", solved_errors=solved_errors
+                           , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
 
 if __name__ == "__main__":
