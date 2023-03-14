@@ -372,7 +372,7 @@ def search(error_id):
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
     error = db.execute("SELECT message FROM errors WHERE error_id = ?", error_id)
-    solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ?", error)
+    solved_errors = db.execute("SELECT * FROM errors WHERE message = ?", error)
 
     return render_template("search.html", solved_errors=solved_errors
                            , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
