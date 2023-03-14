@@ -306,7 +306,7 @@ def edit(error_id):
 
         # エラー文、状況説明、解決策、解決or未解決の内容を更新し、更新日時を変更
         db.execute("UPDATE errors SET message = ?, explain = ?, solved = ?, public = ?, after_day = DATETIME('now','localtime') WHERE error_id = ?", error, explanation, solution, public, error_id)
-        return render_template("solved.html")
+        return redirect("/solved")
 
     # 編集画面に飛ぶ場合
     else :
@@ -343,7 +343,7 @@ def timeline():
         search = request.form.get("search")
 
         # 特定の単語を含む解決済みのエラーをデータベースから取り出し、格納
-        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE "%search%" AND public LIKE '解決'")
+        solved_errors = db.execute("SELECT * FROM errors WHERE message=? AND public LIKE '解決'", search)
         return render_template("timeline.html", solved_errors=solved_errors)
 
     # 解決済みを並べる
