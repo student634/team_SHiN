@@ -343,16 +343,16 @@ def timeline():
         search = request.form.get("search")
 
         # 特定の単語を含む解決済みのエラーをデータベースから取り出し、格納
-        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE "%search%" AND public LIKE '解決'")
+        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public = '解決'", search)
         return render_template("timeline.html", solved_errors=solved_errors)
 
     # 解決済みを並べる
     else:
         # 解決済みのデータを日付順に並べて格納
         # 名前はsolved_errorsでよい？
-        solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
+        solved_errors = db.execute("SELECT * FROM errors WHERE public = '解決' ORDER BY after_day DESC")
         return render_template("timeline.html", solved_errors=solved_errors)
-    
+
 
 # 未解決からそのまま共有画面に
 @app.route("/search/<path:error_id>")
