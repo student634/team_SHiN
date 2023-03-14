@@ -12,14 +12,33 @@ h2{
   font-size:60px;
 }
 
+a{
+  margin:auto;
+  color: #333;
+  text-decoration: none;
+}
+.white_a{
+  color:#fff;
+  text-decoration: none;
+}
+a:hover{
+  color: rgb(255, 255, 255, 0.5);
+}
+
+.buttom_up:hover{
+  transform: scale(1.1);
+}
+
 .footer1{
   width: 100%;
   position: absolute;
   bottom: 0;
 }
 
-.footer2{ /* solvedとunsolvedのヘッダー */
+.footer2{ /* solvedとunsolvedのフッター */
   width: 100%;
+  height: 200px;
+  object-fit: cover;
   bottom: 0;
 }
 
@@ -139,7 +158,7 @@ h2{
   height:95px;
   position:fixed;
   right:50px;
-  bottom:50px;
+  bottom:80px;
 }
 .level_move_right{
   height:150px;
@@ -147,13 +166,25 @@ h2{
   right:10px;
   bottom:300px;
 }
-
+.level_move_left{
+  height:150px;
+  position:fixed;
+  left:10px;
+  bottom:300px;
+}
 
 .search_box{
-  width:400px;
+  width:500px;
+  height:40px;
+  background-color:#fff;
+  border-radius:5px;
+  border:solid 1px #333;
 }
 .search_button{
-  margin:10px;
+  margin-top :12px;
+  padding: 4px 13px;
+  border-radius:5px;
+  border: solid 1px #333;
 }
 
 .contents{
@@ -186,6 +217,10 @@ details > summary { /* 折りたたみボックスのerror */
   background-color: #aa9fa0;
   color: #333;
 }
+.error_level1{
+  background-color:rgb(200, 190, 191);
+  color: #333;
+}
 .error_level2{
   background-color:rgb(187, 219, 180);
   color: #333;
@@ -208,30 +243,27 @@ details > summary { /* 折りたたみボックスのerror */
 }
 
 .back_black{
-  background-color:rgb(230, 230, 230);
+  /* background-color:rgb(230, 230, 230); */
   padding:10px;
 }
 
 .wrap{
   display: flex;
+  height:40px;
   flex-wrap: wrap-reverse;
   justify-content: space-around;
 }
 .wrap2{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-}
-.wrap3{
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 }
 .select_box{
-  border: solid;
+  border: solid 1px #333;
   padding:5px;
+  margin: 10px 20px;
   border-radius: 7px;
-  margin-bottom: 10px;
+  text-align: center;
 }
 
 .box-detail{
@@ -302,13 +334,41 @@ dd{
   }
   /* ローディング */
 
-  @media (max-width: 900px) {
-    /* 横幅が320px以下の場合に適用するスタイル */
+
+  @media (max-width: 1000px) {
     details{
       width: 80vw;
     }
     .login-box{
       width: 70vw;
     }
+    .level_move_right{
+      height:115px;
+    }
+    .level_move_left{
+      height:115px;
+    }
+    .clover{
+    height:90px;
+    }
+    .contents{
+      min-height: 300px;
+    }
   }
-
+  @media (max-width: 600px) {
+    .font_size{
+      font-size:16px;
+    }
+    .level_move_right{
+      height:90px;
+    }
+    .level_move_left{
+      height:90px;
+    }
+    .search_box{
+      width: 300px;
+    }
+    .footer2{
+      object-position: 40% 0;
+    }
+  }
