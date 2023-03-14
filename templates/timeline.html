@@ -38,7 +38,6 @@
         <summary class="error_timeline">{{ solved_error.message }}</summary>
 
         <div>
-            <ul class="box-detail" >
             <dl class="box-detail">
                 <dt>投稿日時:</dt>
                 <dd>{{ solved_error.before_day }}</dd>
@@ -55,12 +54,11 @@
                 <dt>解決策</dt>
                 <dd>{{ solved_error.solved }}</dd>
             </dl>
-            </ul>
         </div>
     </details>
     {% endfor %}
 </div>
-<a href="/unsolved"><img src="./static/images/side_timeline.png" alt="icon" class = "level_move_right"></a>
+<a href="/unsolved"><img src="./static/images/timeline_side.png" alt="icon" class = "level_move_right"></a>
 <footer><img src="./static/images/timeline_footer.png" alt="footer" class = "footer2"></footer>
 {% endblock %}
 

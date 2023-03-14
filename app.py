@@ -357,6 +357,7 @@ def timeline():
 
 
 # 未解決からそのまま共有画面に
+# 澤田
 @app.route("/search/<path:error_id>")
 @login_required
 def search(error_id):
