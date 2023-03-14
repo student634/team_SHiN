@@ -343,7 +343,7 @@ def timeline():
         search = request.form.get("search")
 
         # 特定の単語を含む解決済みのエラーをデータベースから取り出し、格納
-        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", ('%'+search+'%',))
+        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE "%search%" AND public LIKE '解決'")
         return render_template("timeline.html", solved_errors=solved_errors)
 
     # 解決済みを並べる
