@@ -7,6 +7,10 @@ h2{
   text-align:center;
   margin:40px;
 }
+.wf-nicomoji {
+  font-family: "Nico Moji";
+  font-size:60px;
+}
 
 .footer1{
   width: 100%;
