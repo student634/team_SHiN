@@ -343,15 +343,17 @@ def timeline():
         search = request.form.get("search")
 
         # 特定の単語を含む解決済みのエラーをデータベースから取り出し、格納
-        solved_errors = db.execute("SELECT * FROM errors WHERE message=? AND public LIKE '解決'", search)
-        return render_template("timeline.html", solved_errors=solved_errors)
+        solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", ('%'+search+'%',))
+        return render_template("timeline.html", solved_errors=solved_errors
+                               , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
     # 解決済みを並べる
     else:
         # 解決済みのデータを日付順に並べて格納
         # 名前はsolved_errorsでよい？
         solved_errors = db.execute("SELECT * FROM errors WHERE public LIKE '解決' ORDER BY after_day DESC")
-        return render_template("timeline.html", solved_errors=solved_errors)
+        return render_template("timeline.html", solved_errors=solved_errors
+                               , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
 
 
 # 未解決からそのまま共有画面に
@@ -367,7 +369,8 @@ def search(error_id):
     solved_sum = solved_sum[0]['COUNT(error_id)']
 
     search = db.execute("SELECT message FROM errors WHERE error_id = ?", error_id)
-    solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", search)
+    search = search[0]['message']
+    solved_errors = db.execute("SELECT * FROM errors WHERE message LIKE ? AND public LIKE '解決'", ('%'+search+'%',))
 
     return render_template("search.html", solved_errors=solved_errors
                            , errors_sum=errors_sum, solved_sum=solved_sum, username=session["user_id"])
