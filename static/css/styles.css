@@ -22,7 +22,7 @@ a{
   text-decoration: none;
 }
 a:hover{
-  color: rgb(255, 255, 255, 0.5);
+  color: rgb(210, 200, 200, 0.8);
 }
 
 .buttom_up:hover{
@@ -42,83 +42,11 @@ a:hover{
   bottom: 0;
 }
 
-.home{
-  background-image: url(../images/photo.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .flex{
   display: flex; /* 横並びに */
   flex-wrap: wrap; /* 折り返す */
 }
 
-.flexbox-center {
-  display: flex; /* 子要素をflexboxで揃える */
-  flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
-  justify-content: center; /* 子要素をflexboxにより中央に配置する */
-  align-items: center;  /* 子要素をflexboxにより中央に配置する */
-  width: 100%;
-  height: 800px;
-
-}
-
-.center-box{
-  padding: 45px;
-  background-color: rgb(255, 255, 255, 0.5);
-  /* border: 1px solid; */
-  border-radius: 10px;
-  /* opacity: 0.5; */
-}
-
-.center-box h1{
-  text-align: center;
-  margin-right:45px;
-}
-
-.home-button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	overflow: hidden;
-	text-decoration: none;
-	height: 4rem;
-	width: 190px;
-	margin: 30px auto;
-	padding:10px;
-	border-radius: 3%;
-	background: #aa9fa0;
-	background-size: 400%;
-	color: #fff;
-}
-.home-button:hover::before {
-  transform: scaleX(1);
-}
-.home-button:hover {
-	color: #333333;
-}
-.home-button span {
-  position: relative;
-  z-index: 1;
-}
-.home-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  width: 100%;
-  height: inherit;
-  border-radius: inherit;
-  background: linear-gradient(
-    82.3deg,
-    #84ccc9 10.8%,
-    #eae4d6 94.3%
-  );
-  transition: all 0.475s;
-}
 
 .login-box{
   display:block;
@@ -164,13 +92,13 @@ a:hover{
   height:150px;
   position:fixed;
   right:10px;
-  bottom:300px;
+  bottom:230px;
 }
 .level_move_left{
   height:150px;
   position:fixed;
   left:10px;
-  bottom:300px;
+  bottom:230px;
 }
 
 .search_box{
@@ -243,7 +171,6 @@ details > summary { /* 折りたたみボックスのerror */
 }
 
 .back_black{
-  /* background-color:rgb(230, 230, 230); */
   padding:10px;
 }
 
@@ -281,45 +208,19 @@ dd{
   margin:auto;
 }
 
-/* 最初のローディング */
-
-/* Loading背景画面設定 */
-#splash {
-  /*fixedで全面に固定*/
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    background:#fffff8;
-    text-align:center;
-    color:#fff;
-  }
-
-  /* Loading画像中央配置 */
-  #splash_logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  /* Loading アイコンの大きさ設定 */
-  #splash_logo img {
-    width:260px;
-  }
-
-  /* fadeUpをするアイコンの動き */
-  .fadeUp{
-  animation-name: fadeUpAnime;
-  animation-duration:0.5s;
-  animation-fill-mode:forwards;
-  opacity: 0;
-  }
-
-  .profile{
+.profile{
   margin-right: 10px;
   margin-left: 10px;
 }
+
+
+/* 下からエラー一覧を表示 */
+.fadeUp{
+  animation-name:fadeUpAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
 
   @keyframes fadeUpAnime{
     from {
@@ -332,7 +233,6 @@ dd{
     transform: translateY(0);
     }
   }
-  /* ローディング */
 
 
   @media (max-width: 1000px) {
@@ -355,15 +255,20 @@ dd{
       min-height: 300px;
     }
   }
+
   @media (max-width: 600px) {
     .font_size{
       font-size:16px;
     }
     .level_move_right{
-      height:90px;
+      height: 90px;
+      bottom: 130px;
+      right: 6px;
     }
     .level_move_left{
-      height:90px;
+      height: 90px;
+      bottom: 130px;
+      left: 6px;
     }
     .search_box{
       width: 300px;

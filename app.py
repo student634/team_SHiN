@@ -184,29 +184,29 @@ def display_unsolved():
 
     if solved_sum < 2:
         footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/timeline"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/solved"><img src="./static/images/side_left1.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/timeline"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right buttom_up" title="共有エラー"></a>')
+        left = Markup('<a href="/solved"><img src="./static/images/side_left1.png" alt="icon" class = "level_move_left buttom_up" title="解決エラー"></a>')
     elif solved_sum < 3:
         footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/timeline"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/solved"><img src="./static/images/side_left2.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/timeline"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right buttom_up" title="共有エラー"></a>')
+        left = Markup('<a href="/solved"><img src="./static/images/side_left2.png" alt="icon" class = "level_move_left buttom_up" title="解決エラー"></a>')
     elif solved_sum < 4:
         footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/timeline"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/solved"><img src="./static/images/side_left3.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/timeline"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right buttom_up" title="共有エラー"></a>')
+        left = Markup('<a href="/solved"><img src="./static/images/side_left3.png" alt="icon" class = "level_move_left buttom_up" title="解決エラー"></a>')
     elif solved_sum < 5:
         footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/timeline"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/solved"><img src="./static/images/side_left4.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/timeline"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right buttom_up" title="共有エラー"></a>')
+        left = Markup('<a href="/solved"><img src="./static/images/side_left4.png" alt="icon" class = "level_move_left buttom_up" title="解決エラー"></a>')
     else:
         footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/timeline"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/solved"><img src="./static/images/side_left5.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/timeline"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right buttom_up" title="共有エラー"></a>')
+        left = Markup('<a href="/solved"><img src="./static/images/side_left5.png" alt="icon" class = "level_move_left buttom_up" title="解決エラー"></a>')
 
     if request.method == "GET":
 
@@ -270,29 +270,29 @@ def display_solved():
     #解決数に応じてフッターを変更
     if solved_sum < 2:
         footer = Markup('<footer><img src="./static/images/level1.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/unsolved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right" buttom_up></a>')
-        left = Markup('<a href="/timeline"><img src="./static/images/side_left1.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_1.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/unsolved"><img src="./static/images/side_1.png" alt="icon" class = "level_move_right" buttom_up" title="未解決エラー"></a>')
+        left = Markup('<a href="/timeline"><img src="./static/images/side_left1.png" alt="icon" class = "level_move_left buttom_up" title="共有エラー"></a>')
     elif solved_sum < 3:
         footer = Markup('<footer><img src="./static/images/level2.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/unsolved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/timeline"><img src="./static/images/side_left2.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_2.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/unsolved"><img src="./static/images/side_2.png" alt="icon" class = "level_move_right buttom_up" title="未解決エラー"></a>')
+        left = Markup('<a href="/timeline"><img src="./static/images/side_left2.png" alt="icon" class = "level_move_left buttom_up" title="共有エラー"></a>')
     elif solved_sum < 4:
         footer = Markup('<footer><img src="./static/images/level3.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/unsolved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/timeline"><img src="./static/images/side_left3.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_3.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/unsolved"><img src="./static/images/side_3.png" alt="icon" class = "level_move_right buttom_up" title="未解決エラー"></a>')
+        left = Markup('<a href="/timeline"><img src="./static/images/side_left3.png" alt="icon" class = "level_move_left buttom_up" title="共有エラー"></a>')
     elif solved_sum < 5:
         footer = Markup('<footer><img src="./static/images/level4.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/unsolved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/timeline"><img src="./static/images/side_left4.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_4.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/unsolved"><img src="./static/images/side_4.png" alt="icon" class = "level_move_right buttom_up" title="未解決エラー"></a>')
+        left = Markup('<a href="/timeline"><img src="./static/images/side_left4.png" alt="icon" class = "level_move_left buttom_up" title="共有エラー"></a>')
     else:
         footer = Markup('<footer><img src="./static/images/level5.png" alt="footer" class = "footer2"></footer>')
-        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon clover buttom_up"></a>')
-        right = Markup('<a href="/unsolved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right buttom_up"></a>')
-        left = Markup('<a href="/timeline"><img src="./static/images/side_left5.png" alt="icon" class = "level_move_left buttom_up"></a>')
+        icon = Markup('<a href="/record"><img src="./static/images/icon_5.png" alt="icon" class = "level_icon clover buttom_up" title="追加"></a>')
+        right = Markup('<a href="/unsolved"><img src="./static/images/side_5.png" alt="icon" class = "level_move_right buttom_up" title="未解決エラー"></a>')
+        left = Markup('<a href="/timeline"><img src="./static/images/side_left5.png" alt="icon" class = "level_move_left buttom_up" title="共有エラー"></a>')
 
     if request.method == "GET":
 

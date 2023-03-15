@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_home.html" %}
 
 {% block title %}
     Home
@@ -9,17 +9,13 @@
     <div id="splash_logo"><img src="./static/images/icon2.png" alt="" class="fadeUp"></div>
 </div>
 
-<div id="container">
-    <div class = "flex">
-        <div class="flexbox-center home">
-            <div class = "center-box">
-                <h1 class="wf-nicomoji"><img src="./static/images/icon1.png" alt="icon" class = "icon">バグパク</h1>
-                <br>
-                <br>
-                <a href="/login" role="button" class = "home-button"><span>ログイン</span></a>
-                <a href="/register" role="button" class = "home-button"><span>新規登録</span></a>
-            </div>
-
+<div>
+    <div class="flexbox-center">
+        <div class = "center-box">
+            <h1 class="wf-nicomoji">バグパク</h1>
+            <br>
+            <a href="/login" role="button" class = "home-button"><span>ログイン</span></a>
+            <a href="/register" role="button" class = "home-button"><span>新規登録</span></a>
         </div>
     </div>
 </div>

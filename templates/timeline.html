@@ -38,7 +38,7 @@
     </form>
     <hr>
 
-<div class="contents">
+<div class="contents fadeUp">
     <h2>共有エラー</h2>
 
     {% for solved_error in solved_errors %}
@@ -66,13 +66,7 @@
     </details>
     {% endfor %}
 </div>
-<a href="/solved"><img src="./static/images/side_right_timeline.png" alt="icon" class = "level_move_right buttom_up"></a>
-<a href="/unsolved"><img src="./static/images/side_left_timeline.png" alt="icon" class = "level_move_left buttom_up"></a>
+<a href="/solved"><img src="./static/images/side_right_timeline.png" alt="icon" class = "level_move_right buttom_up" title="解決エラー"></a>
+<a href="/unsolved"><img src="./static/images/side_left_timeline.png" alt="icon" class = "level_move_left buttom_up" title="未解決エラー"></a>
 <footer><img src="./static/images/timeline_footer.png" alt="footer" class = "footer2"></footer>
 {% endblock %}
-
-<!--
-名前:sessionにユーザー名を使っているのでそのままいける
-エラー数:SELECT COUNT(*) FROM errors WHERE username = ?, session[user_id]
-解決数:SELECT COUNT(*) FROM errors WHERE username = ? AND public = ?, session[user_id], True(仮)
--->

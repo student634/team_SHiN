@@ -38,7 +38,7 @@
     </form>
     <hr>
 
-<div class="contents">
+<div class="contents fadeUp">
     <h2>未解決エラー</h2>
     {% for unsolved_error in unsolved_errors %}
     <details>
@@ -103,6 +103,7 @@
 
     </details>
     {% endfor %}
+
 </div>
 {{ left | safe }}
 {{ right | safe }}
@@ -110,9 +111,3 @@
 {{ icon | safe }}
 
 {% endblock %}
-
-<!--
-名前:
-エラー数:
-解決数:
--->

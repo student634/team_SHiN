@@ -38,7 +38,7 @@
     </form>
     <hr>
 
-<div class="contents">
+<div class="contents fadeUp">
     <h2>解決済みエラー</h2>
 
     {% for solved_error in solved_errors %}
@@ -103,6 +103,7 @@
 
     </details>
     {% endfor %}
+
 </div>
 {{ left | safe }}
 {{ right | safe }}
@@ -110,9 +111,3 @@
 {{ icon | safe }}
 
 {% endblock %}
-
-<!--
-名前:sessionにユーザー名を使っているのでそのままいける
-エラー数:SELECT COUNT(*) FROM errors WHERE username = ?, session[user_id]
-解決数:SELECT COUNT(*) FROM errors WHERE username = ? AND public = ?, session[user_id], True(仮)
--->
