@@ -11,45 +11,19 @@ h2{
   font-family: "Nico Moji";
   font-size:60px;
 }
-
-a{
-  margin:auto;
-  color: #333;
-  text-decoration: none;
-}
-.white_a{
-  color:#fff;
-  text-decoration: none;
-}
-a:hover{
-  color: rgb(210, 200, 200, 0.8);
-}
-
-.buttom_up:hover{
-  transform: scale(1.1);
-}
-
-.footer1{
-  width: 100%;
-  position: absolute;
-  top:auto;
-  bottom: 0;
-}
-
-.footer2{ /* solvedとunsolvedのフッター */
-  width: 100%;
-  object-fit: cover;
-  top:auto;
-  bottom: 0;
-}
-
 .flex{
   display: flex; /* 横並びに */
   flex-wrap: wrap; /* 折り返す */
 }
+.icon{
+  height:70px;
+  background-size: cover;
+}
 
 
-.login-box{
+
+/* ログイン･新規登録ページ */
+.login-box{ /* ログイン･新規登録ページの中央ボックス */
   display:block;
   width: 35%;
   margin: 50px auto;
@@ -59,8 +33,7 @@ a:hover{
   border-radius: 20px;
   align-items: center;
 }
-
-.button{
+.button{ /* ログイン･新規登録ボタン */
   color: #fff;
   padding: 15px;
   border-style: solid;
@@ -69,8 +42,22 @@ a:hover{
   display: block;
   margin: 50px auto auto auto;
 }
+.footer1{
+  width: 100%;
+  position: absolute;
+  top:auto;
+  bottom: 0;
+}
+/* end */
 
-.button2{
+
+
+/* エラー登録画面 */
+.form-box{
+  width:80%;
+  margin:auto;
+}
+.button2{ /* エラー登録確定ボタン */
   padding: 10px 25px;
   border-style: solid;
   border-color: #aa9fa0;
@@ -78,30 +65,67 @@ a:hover{
   display: block;
   margin: 50px auto auto auto;
 }
+/* end */
 
-.icon{
-  height:70px;
-  background-size: cover;
-}
-.level_icon{
+
+
+/* 操作ボタンPNG画像 */
+.level_icon{ /* エラー追加のクローバーボタン */
   height:95px;
   position:fixed;
   right:50px;
   bottom:80px;
 }
-.level_move_right{
+.buttom_up:hover{ /* エラー追加･移動ボタンの拡大 */
+  transform: scale(1.1);
+}
+.level_move_right{ /* 右の移動ボタン */
   height:150px;
   position:fixed;
   right:10px;
   bottom:230px;
 }
-.level_move_left{
+.level_move_left{ /* 左の移動ボタン */
   height:150px;
   position:fixed;
   left:10px;
   bottom:230px;
 }
+/* end */
 
+
+
+/* プロフィール */
+.profile{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+/* end */
+
+
+
+/* 検索の部分 */
+.back_black{
+  padding:10px;
+}
+.wrap{
+  display: flex;
+  height:40px;
+  flex-wrap: wrap-reverse;
+  justify-content: space-around;
+}
+.wrap2{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.select_box{
+  border: solid 1px #333;
+  padding:5px;
+  margin: 10px 20px;
+  border-radius: 7px;
+  text-align: center;
+}
 .search_box{
   width:500px;
   height:40px;
@@ -115,19 +139,20 @@ a:hover{
   border-radius:5px;
   border: solid 1px #333;
 }
+/* end */
 
+
+
+/* メインのエラー一覧 */
 .contents{
   min-height: 500px;
 }
-
-
 details { /* 折りたたみボックス全体 */
   width: 800px;
   box-shadow: 4px 4px 5px rgb(100,90,90);
   margin: 30px auto;
   border-radius: 5px;
 }
-
 details > summary { /* 折りたたみボックスのerror */
   padding: 6px;
   width: auto;
@@ -140,9 +165,7 @@ details > summary { /* 折りたたみボックスのerror */
   list-style: none;
   white-space: pre-wrap;
 }
-
-/* 解決数によってerrorの色を変更 */
-.error{
+.error{ /* 解決数によってerrorの色を変更 */
   background-color: #aa9fa0;
   color: #333;
 }
@@ -166,34 +189,10 @@ details > summary { /* 折りたたみボックスのerror */
   background-color:rgb(50, 51, 56);
   color: #fff;
 }
-.error_timeline{
+.error_timeline{ /* 共有エラー */
   background-color:rgb(224, 222, 186);
   color: #333;
 }
-
-.back_black{
-  padding:10px;
-}
-
-.wrap{
-  display: flex;
-  height:40px;
-  flex-wrap: wrap-reverse;
-  justify-content: space-around;
-}
-.wrap2{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.select_box{
-  border: solid 1px #333;
-  padding:5px;
-  margin: 10px 20px;
-  border-radius: 7px;
-  text-align: center;
-}
-
 .box-detail{
   list-style: none;
   padding: 30px;
@@ -204,26 +203,35 @@ dd{
   margin-left: 10px;
   white-space: pre-wrap;
 }
-
-.form-box{
-  width:80%;
+a{
   margin:auto;
+  color: #333;
+  text-decoration: none;
 }
-
-.profile{
-  margin-right: 10px;
-  margin-left: 10px;
+.white_a{
+  color:#fff;
+  text-decoration: none;
 }
+a:hover{
+  color: rgb(210, 200, 200, 0.8);
+}
+.footer2{ /*色フッター */
+  width: 100%;
+  object-fit: cover;
+  top:auto;
+  bottom: 0;
+}
+/* end */
 
 
-/* 下からエラー一覧を表示 */
+
+/* 下からエラー一覧を表示(動き) */
 .fadeUp{
   animation-name:fadeUpAnime;
   animation-duration:0.5s;
   animation-fill-mode:forwards;
   opacity:0;
   }
-
   @keyframes fadeUpAnime{
     from {
       opacity: 0;
@@ -235,8 +243,11 @@ dd{
     transform: translateY(0);
     }
   }
+/* end */
 
 
+
+/* 1000px以下の時 */
   @media (max-width: 1000px) {
     details{
       width: 80vw;
@@ -257,7 +268,7 @@ dd{
       min-height: 300px;
     }
   }
-
+/* 600px以下 */
   @media (max-width: 600px) {
     .font_size{
       font-size:16px;
